@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import '../services/auth_service.dart';
+import 'home_page.dart';
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  LoginPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +58,7 @@ class LoginPage extends StatelessWidget {
               const SizedBox(height: 8),
 
               TextField(
+                controller: emailController,
                 decoration: InputDecoration(
                   hintText: "hoang@gmail.com",
                   filled: true,
@@ -79,6 +84,7 @@ class LoginPage extends StatelessWidget {
               const SizedBox(height: 8),
 
               TextField(
+                controller: passwordController,
                 obscureText: true,
                 decoration: InputDecoration(
                   hintText: "••••••••",
@@ -110,7 +116,26 @@ class LoginPage extends StatelessWidget {
                 width: double.infinity,
                 height: 58,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () async {
+                    print("Email: ${emailController.text}");
+                    print("Password: ${passwordController.text}");
+                    final user = await AuthService.login(
+                      emailController.text.trim(),
+                      passwordController.text.trim(),
+                    );
+                    if (user != null) {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (_) => const HomePage()),
+                      );
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Email hoặc mật khẩu không đúng!'),
+                        ),
+                      );
+                    }
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.green,
                     foregroundColor: Colors.white,

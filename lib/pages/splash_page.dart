@@ -37,7 +37,7 @@ class _SplashPageState extends State<SplashPage>
     Timer(const Duration(seconds: 3), () {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (_) => const LoginPage()),
+        MaterialPageRoute(builder: (_) => LoginPage()),
       );
     });
   }
