@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_smart_fridge/pages/register.dart';
 import '../services/auth_service.dart';
 import 'home_page.dart';
+import 'register.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({super.key});
@@ -184,7 +186,12 @@ class _LoginPageState extends State<LoginPage> {
                       style: TextStyle(color: Colors.grey),
                     ),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (_) => RegisterPage()),
+                        );
+                      },
                       child: Text(
                         'Đăng ký',
                         style: TextStyle(
