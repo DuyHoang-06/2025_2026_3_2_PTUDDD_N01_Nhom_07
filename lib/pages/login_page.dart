@@ -150,6 +150,27 @@ class LoginPage extends StatelessWidget {
                   ),
                 ),
               ),
+              const SizedBox(height: 35),
+
+              Center(
+                child: RichText(
+                  text: const TextSpan(
+                    style: TextStyle(color: Colors.grey),
+                    children: [
+                      TextSpan(text: "Chưa có tài khoản? "),
+                      TextSpan(
+                        text: "Đăng Ký",
+                        style: TextStyle(
+                          color: Colors.green,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 30),
             ],
           ),
         ),
