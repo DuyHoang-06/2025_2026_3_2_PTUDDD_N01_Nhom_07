@@ -2,10 +2,19 @@ import 'package:flutter/material.dart';
 import '../services/auth_service.dart';
 import 'home_page.dart';
 
-class LoginPage extends StatelessWidget {
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
+class LoginPage extends StatefulWidget {
   LoginPage({super.key});
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  final emailController = TextEditingController();
+
+  final passwordController = TextEditingController();
+
+  bool _obscurePassword = true;
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +94,7 @@ class LoginPage extends StatelessWidget {
 
               TextField(
                 controller: passwordController,
-                obscureText: true,
+                obscureText: _obscurePassword,
                 decoration: InputDecoration(
                   hintText: "••••••••",
                   filled: true,
@@ -93,6 +102,18 @@ class LoginPage extends StatelessWidget {
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(16),
                     borderSide: BorderSide.none,
+                  ),
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      _obscurePassword
+                          ? Icons.visibility_off
+                          : Icons.visibility,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _obscurePassword = !_obscurePassword;
+                      });
+                    },
                   ),
                 ),
               ),
@@ -102,7 +123,9 @@ class LoginPage extends StatelessWidget {
               Align(
                 alignment: Alignment.centerRight,
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    print('clicked quên mật khẩu');
+                  },
                   child: const Text(
                     "Quên mật khẩu?",
                     style: TextStyle(color: Colors.green),
@@ -153,20 +176,24 @@ class LoginPage extends StatelessWidget {
               const SizedBox(height: 35),
 
               Center(
-                child: RichText(
-                  text: const TextSpan(
-                    style: TextStyle(color: Colors.grey),
-                    children: [
-                      TextSpan(text: "Chưa có tài khoản? "),
-                      TextSpan(
-                        text: "Đăng Ký",
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      'Chưa có tài khoản?',
+                      style: TextStyle(color: Colors.grey),
+                    ),
+                    TextButton(
+                      onPressed: () {},
+                      child: Text(
+                        'Đăng ký',
                         style: TextStyle(
                           color: Colors.green,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
 
