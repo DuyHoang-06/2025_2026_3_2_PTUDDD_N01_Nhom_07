@@ -210,6 +210,34 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                 ),
               ),
+
+              const SizedBox(height: 20),
+
+              Center(
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      'Đã có tài khoản?',
+                      style: TextStyle(color: Colors.grey),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: Text(
+                        'Đăng nhập',
+                        style: TextStyle(
+                          color: Colors.green,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              const SizedBox(height: 30),
             ],
           ),
         ),
