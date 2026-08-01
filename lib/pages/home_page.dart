@@ -159,100 +159,109 @@ class _HomePageState extends State<HomePage> {
       ],
     );
   }
-}
-// ============================================================
-// SEARCH
-// ============================================================
+  // ============================================================
+  // SEARCH
+  // ============================================================
 
-Widget _buildSearchBar() {
-  return Container(
-    height: 42,
-    decoration: BoxDecoration(
-      color: const Color(0xffEDF5EE),
-      borderRadius: BorderRadius.circular(14),
-    ),
-    child: const TextField(
-      decoration: InputDecoration(
-        hintText: 'Tìm kiếm thực phẩm...',
-        hintStyle: TextStyle(color: Color(0xff87968B), fontSize: 12),
-        prefixIcon: Icon(Icons.search, size: 18, color: Color(0xff7D9181)),
-        border: InputBorder.none,
-        contentPadding: EdgeInsets.symmetric(vertical: 12),
+  Widget _buildSearchBar() {
+    return Container(
+      height: 42,
+      decoration: BoxDecoration(
+        color: const Color(0xffEDF5EE),
+        borderRadius: BorderRadius.circular(14),
       ),
-    ),
-  );
-}
-
-// ============================================================
-// FRIDGE BANNER
-// ============================================================
-
-Widget _buildFridgeBanner() {
-  return Container(
-    width: double.infinity,
-    height: 125,
-    decoration: BoxDecoration(
-      color: const Color(0xff398A46),
-      borderRadius: BorderRadius.circular(18),
-    ),
-    child: Padding(
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(
-            'TỦ LẠNH CỦA TÔI',
-            style: TextStyle(
-              color: Colors.white70,
-              fontSize: 9,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-
-          const SizedBox(height: 3),
-
-          const Text(
-            'Duy Hoàng',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ],
+      child: const TextField(
+        decoration: InputDecoration(
+          hintText: 'Tìm kiếm thực phẩm...',
+          hintStyle: TextStyle(color: Color(0xff87968B), fontSize: 12),
+          prefixIcon: Icon(Icons.search, size: 18, color: Color(0xff7D9181)),
+          border: InputBorder.none,
+          contentPadding: EdgeInsets.symmetric(vertical: 12),
+        ),
       ),
-    ),
-  );
-}
+    );
+  }
 
-Widget _buildBannerNumber(String number, String title) {
-  return Expanded(
-    child: Row(
-      children: [
-        Column(
+  // ============================================================
+  // FRIDGE BANNER
+  // ============================================================
+
+  Widget _buildFridgeBanner() {
+    return Container(
+      width: double.infinity,
+      height: 125,
+      decoration: BoxDecoration(
+        color: const Color(0xff398A46),
+        borderRadius: BorderRadius.circular(18),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              number,
-              style: const TextStyle(
+            const Text(
+              'TỦ LẠNH CỦA TÔI',
+              style: TextStyle(
+                color: Colors.white70,
+                fontSize: 9,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+
+            const SizedBox(height: 3),
+
+            const Text(
+              'Duy Hoàng',
+              style: TextStyle(
                 color: Colors.white,
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
             ),
+            const Spacer(),
 
-            Text(
-              title,
-              style: const TextStyle(color: Colors.white70, fontSize: 8),
+            Row(
+              children: [
+                _buildBannerNumber(totalFoods.toString(), 'Tổng món'),
+                _buildBannerNumber(expiringFoods.toString(), 'Sắp hết hạn'),
+                _buildBannerNumber(expiredFoods.toString(), 'Hết hạn'),
+              ],
             ),
           ],
         ),
+      ),
+    );
+  }
 
-        const SizedBox(width: 15),
+  Widget _buildBannerNumber(String number, String title) {
+    return Expanded(
+      child: Row(
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                number,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
 
-        if (title != 'Hết hạn')
-          Container(width: 1, height: 30, color: Colors.white24),
-      ],
-    ),
-  );
+              Text(
+                title,
+                style: const TextStyle(color: Colors.white70, fontSize: 8),
+              ),
+            ],
+          ),
+
+          const SizedBox(width: 15),
+
+          if (title != 'Hết hạn')
+            Container(width: 1, height: 30, color: Colors.white24),
+        ],
+      ),
+    );
+  }
 }
