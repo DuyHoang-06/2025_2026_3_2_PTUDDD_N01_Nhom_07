@@ -158,6 +158,10 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(height: 20),
 
             _buildFoodSuggestion(),
+
+            const SizedBox(height: 20),
+
+            _buildBottomNavigationBar(),
           ],
         ),
       ),
@@ -696,6 +700,50 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
+    );
+  }
+
+  // ============================================================
+  // BOTTOM NAVIGATION
+  // ============================================================
+
+  Widget _buildBottomNavigationBar() {
+    return BottomNavigationBar(
+      currentIndex: _currentIndex,
+      onTap: (index) {
+        setState(() {
+          _currentIndex = index;
+        });
+      },
+      type: BottomNavigationBarType.fixed,
+      backgroundColor: Colors.white,
+      selectedItemColor: const Color(0xff4CAF50),
+      unselectedItemColor: const Color(0xff9AA49C),
+      selectedFontSize: 10,
+      unselectedFontSize: 10,
+      elevation: 10,
+      items: const [
+        BottomNavigationBarItem(
+          icon: Icon(Icons.home_outlined),
+          activeIcon: Icon(Icons.home),
+          label: 'Trang chủ',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.kitchen_outlined),
+          activeIcon: Icon(Icons.kitchen),
+          label: 'Tủ lạnh',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.auto_awesome_outlined),
+          activeIcon: Icon(Icons.auto_awesome),
+          label: 'AI',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.person_outline),
+          activeIcon: Icon(Icons.person),
+          label: 'Cá nhân',
+        ),
+      ],
     );
   }
 }
