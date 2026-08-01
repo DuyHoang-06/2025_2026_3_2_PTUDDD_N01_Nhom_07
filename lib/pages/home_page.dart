@@ -75,6 +75,10 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(height: 20),
 
             _buildStatistics(),
+
+            const SizedBox(height: 20),
+
+            _buildCategoryHeader(),
           ],
         ),
       ),
@@ -354,4 +358,39 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+}
+
+// ============================================================
+// CATEGORY
+// ============================================================
+
+Widget _buildCategoryHeader() {
+  return Row(
+    children: [
+      const Text(
+        'Danh Mục',
+        style: TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.bold,
+          color: Color(0xff1D3022),
+        ),
+      ),
+
+      const Spacer(),
+
+      GestureDetector(
+        onTap: () {
+          print('Xem tất cả danh mục');
+        },
+        child: const Text(
+          'Xem tất cả',
+          style: TextStyle(
+            color: Color(0xff4CAF50),
+            fontSize: 10,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+    ],
+  );
 }
