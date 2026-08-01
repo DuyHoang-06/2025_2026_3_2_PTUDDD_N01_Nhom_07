@@ -69,6 +69,12 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(height: 20),
 
             _buildFridgeBanner(),
+
+            const SizedBox(height: 20),
+
+            const SizedBox(height: 20),
+
+            _buildStatistics(),
           ],
         ),
       ),
@@ -260,6 +266,90 @@ class _HomePageState extends State<HomePage> {
 
           if (title != 'Hết hạn')
             Container(width: 1, height: 30, color: Colors.white24),
+        ],
+      ),
+    );
+  }
+  // ============================================================
+  // STATISTICS
+  // ============================================================
+
+  Widget _buildStatistics() {
+    return Row(
+      children: [
+        Expanded(
+          child: _buildStatCard(
+            icon: Icons.inventory_2_outlined,
+            number: totalFoods.toString(),
+            title: 'Tổng Thực Phẩm',
+            color: const Color(0xffE4F4E7),
+            iconColor: const Color(0xff4CAF50),
+          ),
+        ),
+
+        const SizedBox(width: 8),
+
+        Expanded(
+          child: _buildStatCard(
+            icon: Icons.warning_amber_rounded,
+            number: expiringFoods.toString(),
+            title: 'Sắp Hết Hạn',
+            color: const Color(0xfffff6df),
+            iconColor: const Color(0xffff9d00),
+          ),
+        ),
+
+        const SizedBox(width: 8),
+
+        Expanded(
+          child: _buildStatCard(
+            icon: Icons.close,
+            number: expiredFoods.toString(),
+            title: 'Đã Hết Hạn',
+            color: const Color(0xffffeeee),
+            iconColor: const Color(0xffff5252),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildStatCard({
+    required IconData icon,
+    required String number,
+    required String title,
+    required Color color,
+    required Color iconColor,
+  }) {
+    return Container(
+      height: 90,
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: color,
+        borderRadius: BorderRadius.circular(15),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(icon, size: 16, color: iconColor),
+
+          const SizedBox(height: 4),
+
+          Text(
+            number,
+            style: TextStyle(
+              color: iconColor,
+              fontSize: 17,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+
+          Text(
+            title,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: const TextStyle(color: Color(0xff657067), fontSize: 8),
+          ),
         ],
       ),
     );
