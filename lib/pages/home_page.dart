@@ -104,9 +104,6 @@ class _HomePageState extends State<HomePage> {
       case 'trái cây':
         return const Color(0xffffe8ed);
 
-      case 'sữa':
-        return const Color(0xffeeeaff);
-
       default:
         return const Color(0xffE7F6E9);
     }
@@ -153,6 +150,10 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(height: 20),
 
             _buildCategories(),
+
+            const SizedBox(height: 20),
+
+            _buildAiHeader(),
           ],
         ),
       ),
@@ -541,6 +542,57 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
+    );
+  }
+
+  // ============================================================
+  // AI
+  // ============================================================
+
+  Widget _buildAiHeader() {
+    return Row(
+      children: [
+        Container(
+          width: 25,
+          height: 25,
+          decoration: BoxDecoration(
+            color: const Color(0xffE7F5E9),
+            borderRadius: BorderRadius.circular(7),
+          ),
+          child: const Icon(
+            Icons.auto_awesome,
+            color: Color(0xff4CAF50),
+            size: 15,
+          ),
+        ),
+
+        const SizedBox(width: 7),
+
+        const Text(
+          'Gợi Ý AI Hôm Nay',
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.bold,
+            color: Color(0xff1D3022),
+          ),
+        ),
+
+        const Spacer(),
+
+        GestureDetector(
+          onTap: () {
+            print('Xem thêm AI');
+          },
+          child: const Text(
+            'Thêm',
+            style: TextStyle(
+              color: Color(0xff4CAF50),
+              fontSize: 10,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
