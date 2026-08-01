@@ -42,6 +42,76 @@ class _HomePageState extends State<HomePage> {
     }).length;
   }
 
+  // ============================================================
+  // CATEGORY DATA
+  // ============================================================
+
+  List<Map<String, dynamic>> get categories {
+    final Map<String, int> categoryCounts = {};
+
+    for (var food in foods) {
+      categoryCounts[food.category] = (categoryCounts[food.category] ?? 0) + 1;
+    }
+
+    return categoryCounts.entries.map((entry) {
+      return {
+        'name': entry.key,
+        'count': entry.value,
+        'image': _getCategoryImage(entry.key),
+        'color': _getCategoryColor(entry.key),
+      };
+    }).toList();
+  }
+
+  String _getCategoryImage(String category) {
+    switch (category.toLowerCase()) {
+      case 'rau củ':
+      case 'rau':
+        return 'assets/imgs/categories/vegetable.png';
+
+      case 'thịt & cá':
+      case 'thịt':
+      case 'cá':
+        return 'assets/imgs/categories/meat.png';
+
+      case 'đồ uống':
+      case 'đồ uống ':
+        return 'assets/imgs/categories/drink.png';
+
+      case 'trái cây':
+        return 'assets/imgs/categories/fruit.png';
+
+      default:
+        return 'assets/imgs/categories/other.png';
+    }
+  }
+
+  Color _getCategoryColor(String category) {
+    switch (category.toLowerCase()) {
+      case 'rau củ':
+      case 'rau':
+        return const Color(0xffE7F6E9);
+
+      case 'thịt & cá':
+      case 'thịt':
+      case 'cá':
+        return const Color(0xffffeeee);
+
+      case 'đồ uống':
+      case 'đồ uống ':
+        return const Color(0xfffff3dd);
+
+      case 'trái cây':
+        return const Color(0xffffe8ed);
+
+      case 'sữa':
+        return const Color(0xffeeeaff);
+
+      default:
+        return const Color(0xffE7F6E9);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,6 +149,10 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(height: 20),
 
             _buildCategoryHeader(),
+
+            const SizedBox(height: 20),
+
+            _buildCategories(),
           ],
         ),
       ),
@@ -358,39 +432,115 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-}
 
-// ============================================================
-// CATEGORY
-// ============================================================
+  // ============================================================
+  // CATEGORY
+  // ============================================================
 
-Widget _buildCategoryHeader() {
-  return Row(
-    children: [
-      const Text(
-        'Danh Mục',
-        style: TextStyle(
-          fontSize: 14,
-          fontWeight: FontWeight.bold,
-          color: Color(0xff1D3022),
-        ),
-      ),
-
-      const Spacer(),
-
-      GestureDetector(
-        onTap: () {
-          print('Xem tất cả danh mục');
-        },
-        child: const Text(
-          'Xem tất cả',
+  Widget _buildCategoryHeader() {
+    return Row(
+      children: [
+        const Text(
+          'Danh Mục',
           style: TextStyle(
-            color: Color(0xff4CAF50),
-            fontSize: 10,
+            fontSize: 14,
             fontWeight: FontWeight.bold,
+            color: Color(0xff1D3022),
           ),
         ),
+
+        const Spacer(),
+
+        GestureDetector(
+          onTap: () {
+            print('Xem tất cả danh mục');
+          },
+          child: const Text(
+            'Xem tất cả',
+            style: TextStyle(
+              color: Color(0xff4CAF50),
+              fontSize: 10,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildCategories() {
+    return SizedBox(
+      height: 100,
+      child: ListView.separated(
+        scrollDirection: Axis.horizontal,
+        physics: const BouncingScrollPhysics(),
+        itemCount: categories.length,
+        separatorBuilder: (_, __) => const SizedBox(width: 8),
+        itemBuilder: (context, index) {
+          final category = categories[index];
+
+          return _buildCategoryCard(
+            name: category['name'],
+            image: category['image'],
+            color: category['color'],
+            count: category['count'],
+          );
+        },
       ),
-    ],
-  );
+    );
+  }
+
+  Widget _buildCategoryCard({
+    required String name,
+    required String image,
+    required Color color,
+    required int count,
+  }) {
+    return GestureDetector(
+      onTap: () {
+        print('Chọn danh mục: $name');
+      },
+      child: Container(
+        width: 72,
+        padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 10),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(14),
+          border: Border.all(color: const Color(0xffE8EEE9)),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              width: 32,
+              height: 32,
+              decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+              child: Image.asset(
+                image,
+                width: 22,
+                height: 22,
+                fit: BoxFit.contain,
+              ),
+            ),
+
+            const SizedBox(height: 6),
+
+            Text(
+              name,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(fontSize: 9, fontWeight: FontWeight.bold),
+            ),
+
+            const SizedBox(height: 2),
+
+            Text(
+              '$count món',
+              style: const TextStyle(fontSize: 8, color: Colors.grey),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }
