@@ -154,6 +154,10 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(height: 20),
 
             _buildAiHeader(),
+
+            const SizedBox(height: 20),
+
+            _buildFoodSuggestion(),
           ],
         ),
       ),
@@ -593,6 +597,105 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ],
+    );
+  }
+
+  Widget _buildFoodSuggestion() {
+    // Lấy thực phẩm sắp hết hạn đầu tiên
+    Food? food;
+
+    final today = DateTime.now();
+
+    for (var item in foods) {
+      final difference = item.expiryDate.difference(today).inDays;
+
+      if (difference >= 0 && difference <= 3) {
+        food = item;
+        break;
+      }
+    }
+
+    return GestureDetector(
+      onTap: () {
+        print('Mở gợi ý AI');
+      },
+      child: Container(
+        height: 185,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(17),
+          border: Border.all(color: const Color(0xffE8EEE9)),
+        ),
+        clipBehavior: Clip.antiAlias,
+        child: Column(
+          children: [
+            Expanded(
+              child: Stack(
+                children: [
+                  Container(
+                    width: double.infinity,
+                    color: const Color(0xffDCEBD8),
+                    child: const Icon(
+                      Icons.restaurant,
+                      size: 60,
+                      color: Color(0xff79A878),
+                    ),
+                  ),
+
+                  Positioned(
+                    left: 10,
+                    top: 10,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 9,
+                        vertical: 5,
+                      ),
+                      decoration: BoxDecoration(
+                        color: const Color(0xff4CAF50),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: const Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(
+                            Icons.auto_awesome,
+                            color: Colors.white,
+                            size: 11,
+                          ),
+                          SizedBox(width: 4),
+                          Text(
+                            'AI Gợi Ý',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 9,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            Container(
+              height: 48,
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              alignment: Alignment.centerLeft,
+              child: Text(
+                food != null
+                    ? 'Món ăn với ${food.name}'
+                    : 'Chưa có gợi ý món ăn',
+                style: const TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
