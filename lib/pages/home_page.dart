@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../data/fake_food.dart';
+import '../models/food.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -8,6 +10,38 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  int _currentIndex = 0;
+
+  // ==============================
+  // DATA
+  // ==============================
+
+  List<Food> get foods => fakeFoods;
+
+  // Tổng số loại thực phẩm
+  int get totalFoods => foods.length;
+
+  // Thực phẩm sắp hết hạn
+  // Quy định: còn <= 3 ngày và chưa hết hạn
+  int get expiringFoods {
+    final today = DateTime.now();
+
+    return foods.where((food) {
+      final difference = food.expiryDate.difference(today).inDays;
+
+      return difference >= 0 && difference <= 3;
+    }).length;
+  }
+
+  // Thực phẩm đã hết hạn
+  int get expiredFoods {
+    final today = DateTime.now();
+
+    return foods.where((food) {
+      return food.expiryDate.isBefore(today);
+    }).length;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -187,6 +221,38 @@ Widget _buildFridgeBanner() {
           ),
         ],
       ),
+    ),
+  );
+}
+
+Widget _buildBannerNumber(String number, String title) {
+  return Expanded(
+    child: Row(
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              number,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+
+            Text(
+              title,
+              style: const TextStyle(color: Colors.white70, fontSize: 8),
+            ),
+          ],
+        ),
+
+        const SizedBox(width: 15),
+
+        if (title != 'Hết hạn')
+          Container(width: 1, height: 30, color: Colors.white24),
+      ],
     ),
   );
 }
