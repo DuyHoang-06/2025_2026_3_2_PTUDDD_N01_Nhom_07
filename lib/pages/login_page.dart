@@ -3,6 +3,7 @@ import 'package:flutter_smart_fridge/pages/register.dart';
 import '../services/auth_service.dart';
 import 'home_page.dart';
 import 'register.dart';
+import 'main_page.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({super.key});
@@ -151,7 +152,7 @@ class _LoginPageState extends State<LoginPage> {
                     if (user != null) {
                       Navigator.pushReplacement(
                         context,
-                        MaterialPageRoute(builder: (_) => const HomePage()),
+                        MaterialPageRoute(builder: (_) => const MainPage()),
                       );
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(

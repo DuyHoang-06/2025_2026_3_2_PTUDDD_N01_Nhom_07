@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import '../data/fake_food.dart';
 import '../models/food.dart';
+import 'fridge_page.dart';
+import 'ai_page.dart';
+import 'profile_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -11,7 +14,12 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
-
+  final List<Widget> _pages = [
+    HomePage(),
+    FridgePage(),
+    AiPage(),
+    ProfilePage(),
+  ];
   // ==============================
   // DATA
   // ==============================
@@ -111,10 +119,9 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xffF7FAF6),
-      body: SafeArea(child: _buildHomeBody()),
-      bottomNavigationBar: _buildBottomNavigationBar(),
+    return Container(
+      color: const Color(0xffF7FAF6),
+      child: SafeArea(child: _buildHomeBody()),
     );
   }
 
@@ -699,50 +706,6 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-    );
-  }
-
-  // ============================================================
-  // BOTTOM NAVIGATION
-  // ============================================================
-
-  Widget _buildBottomNavigationBar() {
-    return BottomNavigationBar(
-      currentIndex: _currentIndex,
-      onTap: (index) {
-        setState(() {
-          _currentIndex = index;
-        });
-      },
-      type: BottomNavigationBarType.fixed,
-      backgroundColor: Colors.white,
-      selectedItemColor: const Color(0xff4CAF50),
-      unselectedItemColor: const Color(0xff9AA49C),
-      selectedFontSize: 10,
-      unselectedFontSize: 10,
-      elevation: 10,
-      items: const [
-        BottomNavigationBarItem(
-          icon: Icon(Icons.home_outlined),
-          activeIcon: Icon(Icons.home),
-          label: 'Trang chủ',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.kitchen_outlined),
-          activeIcon: Icon(Icons.kitchen),
-          label: 'Tủ lạnh',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.auto_awesome_outlined),
-          activeIcon: Icon(Icons.auto_awesome),
-          label: 'AI',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.person_outline),
-          activeIcon: Icon(Icons.person),
-          label: 'Cá nhân',
-        ),
-      ],
     );
   }
 }
