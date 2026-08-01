@@ -33,6 +33,8 @@ class _HomePageState extends State<HomePage> {
             _buildSearchBar(),
 
             const SizedBox(height: 20),
+
+            _buildFridgeBanner(),
           ],
         ),
       ),
@@ -142,6 +144,48 @@ Widget _buildSearchBar() {
         prefixIcon: Icon(Icons.search, size: 18, color: Color(0xff7D9181)),
         border: InputBorder.none,
         contentPadding: EdgeInsets.symmetric(vertical: 12),
+      ),
+    ),
+  );
+}
+
+// ============================================================
+// FRIDGE BANNER
+// ============================================================
+
+Widget _buildFridgeBanner() {
+  return Container(
+    width: double.infinity,
+    height: 125,
+    decoration: BoxDecoration(
+      color: const Color(0xff398A46),
+      borderRadius: BorderRadius.circular(18),
+    ),
+    child: Padding(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            'TỦ LẠNH CỦA TÔI',
+            style: TextStyle(
+              color: Colors.white70,
+              fontSize: 9,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+
+          const SizedBox(height: 3),
+
+          const Text(
+            'Duy Hoàng',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
       ),
     ),
   );
