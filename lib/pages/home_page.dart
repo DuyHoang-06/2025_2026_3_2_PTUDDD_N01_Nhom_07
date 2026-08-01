@@ -114,6 +114,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: const Color(0xffF7FAF6),
       body: SafeArea(child: _buildHomeBody()),
+      bottomNavigationBar: _buildBottomNavigationBar(),
     );
   }
 
@@ -160,8 +161,6 @@ class _HomePageState extends State<HomePage> {
             _buildFoodSuggestion(),
 
             const SizedBox(height: 20),
-
-            _buildBottomNavigationBar(),
           ],
         ),
       ),
