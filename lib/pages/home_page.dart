@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../data/fake_food.dart';
-import '../models/food.dart';
-
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -32,6 +29,8 @@ class _HomePageState extends State<HomePage> {
             _buildHeader(),
 
             const SizedBox(height: 16),
+
+            _buildSearchBar(),
 
             const SizedBox(height: 20),
           ],
@@ -124,4 +123,26 @@ class _HomePageState extends State<HomePage> {
       ],
     );
   }
+}
+// ============================================================
+// SEARCH
+// ============================================================
+
+Widget _buildSearchBar() {
+  return Container(
+    height: 42,
+    decoration: BoxDecoration(
+      color: const Color(0xffEDF5EE),
+      borderRadius: BorderRadius.circular(14),
+    ),
+    child: const TextField(
+      decoration: InputDecoration(
+        hintText: 'Tìm kiếm thực phẩm...',
+        hintStyle: TextStyle(color: Color(0xff87968B), fontSize: 12),
+        prefixIcon: Icon(Icons.search, size: 18, color: Color(0xff7D9181)),
+        border: InputBorder.none,
+        contentPadding: EdgeInsets.symmetric(vertical: 12),
+      ),
+    ),
+  );
 }
