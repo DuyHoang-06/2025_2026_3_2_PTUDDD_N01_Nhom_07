@@ -19,9 +19,7 @@ class _FridgePageState extends State<FridgePage> {
 
       appBar: _buildAppBar(),
 
-      body: Column(children: [
-        ],
-      ),
+      body: Column(children: [const SizedBox(height: 10), _buildSearch()]),
     );
   }
 
@@ -69,6 +67,46 @@ class _FridgePageState extends State<FridgePage> {
         ),
         const SizedBox(width: 5),
       ],
+    );
+  }
+
+  // ============================================================
+  // SEARCH
+  // ============================================================
+
+  Widget _buildSearch() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+
+      child: Container(
+        height: 45,
+
+        decoration: BoxDecoration(
+          color: Colors.white,
+
+          borderRadius: BorderRadius.circular(14),
+
+          border: Border.all(color: const Color(0xffE2EAE3)),
+        ),
+
+        child: TextField(
+          onChanged: (_) {
+            setState(() {});
+          },
+
+          decoration: InputDecoration(
+            hintText: 'Tìm kiếm thực phẩm...',
+
+            hintStyle: const TextStyle(color: Color(0xff9AA49C), fontSize: 12),
+
+            prefixIcon: const Icon(
+              Icons.search,
+              size: 20,
+              color: Color(0xff7C8C80),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
