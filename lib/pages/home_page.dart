@@ -598,7 +598,10 @@ class _HomePageState extends State<HomePage> {
 
         GestureDetector(
           onTap: () {
-            print('Xem thêm AI');
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const AiPage()),
+            );
           },
           child: const Text(
             'Thêm',
