@@ -468,7 +468,10 @@ class _HomePageState extends State<HomePage> {
 
         GestureDetector(
           onTap: () {
-            print('Xem tất cả danh mục');
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const FridgePage()),
+            );
           },
           child: const Text(
             'Xem tất cả',
