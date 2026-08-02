@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../data/fake_food.dart';
 
 class FridgePage extends StatefulWidget {
   const FridgePage({super.key});
@@ -13,6 +14,24 @@ class _FridgePageState extends State<FridgePage> {
   // ============================================================
 
   final TextEditingController _searchController = TextEditingController();
+  // Danh mục hiện tại
+  String _selectedCategory = 'Tất cả';
+
+  // ============================================================
+  // CATEGORY
+  // ============================================================
+
+  List<String> get categories {
+    final List<String> result = ['Tất cả'];
+
+    for (final food in fakeFoods) {
+      if (!result.contains(food.category)) {
+        result.add(food.category);
+      }
+    }
+
+    return result;
+  }
 
   // ============================================================
   // BUILD
@@ -25,7 +44,17 @@ class _FridgePageState extends State<FridgePage> {
 
       appBar: _buildAppBar(),
 
-      body: Column(children: [const SizedBox(height: 10), _buildSearch()]),
+      body: Column(
+        children: [
+          const SizedBox(height: 10),
+
+          _buildSearch(),
+
+          const SizedBox(height: 10),
+
+          _buildCategoryFilter(),
+        ],
+      ),
     );
   }
 
@@ -128,6 +157,70 @@ class _FridgePageState extends State<FridgePage> {
             contentPadding: const EdgeInsets.symmetric(vertical: 13),
           ),
         ),
+      ),
+    );
+  }
+
+  // ============================================================
+  // CATEGORY FILTER
+  // ============================================================
+
+  Widget _buildCategoryFilter() {
+    return SizedBox(
+      height: 38,
+
+      child: ListView.separated(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+
+        scrollDirection: Axis.horizontal,
+
+        itemCount: categories.length,
+
+        separatorBuilder: (_, __) {
+          return const SizedBox(width: 8);
+        },
+
+        itemBuilder: (context, index) {
+          final category = categories[index];
+
+          final selected = category == _selectedCategory;
+
+          return GestureDetector(
+            onTap: () {
+              setState(() {
+                _selectedCategory = category;
+              });
+            },
+
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+
+              decoration: BoxDecoration(
+                color: selected ? const Color(0xff4CAF50) : Colors.white,
+
+                borderRadius: BorderRadius.circular(20),
+
+                border: Border.all(
+                  color: selected
+                      ? const Color(0xff4CAF50)
+                      : const Color(0xffE2EAE3),
+                ),
+              ),
+
+              child: Text(
+                category,
+
+                style: TextStyle(
+                  fontSize: 10,
+
+                  fontWeight: FontWeight.w600,
+
+                  color: selected ? Colors.white : const Color(0xff657067),
+                ),
+              ),
+            ),
+          );
+        },
       ),
     );
   }
