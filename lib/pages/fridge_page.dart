@@ -9,6 +9,12 @@ class FridgePage extends StatefulWidget {
 
 class _FridgePageState extends State<FridgePage> {
   // ============================================================
+  // CONTROLLERS
+  // ============================================================
+
+  final TextEditingController _searchController = TextEditingController();
+
+  // ============================================================
   // BUILD
   // ============================================================
 
@@ -90,6 +96,7 @@ class _FridgePageState extends State<FridgePage> {
         ),
 
         child: TextField(
+          controller: _searchController,
           onChanged: (_) {
             setState(() {});
           },
@@ -104,6 +111,21 @@ class _FridgePageState extends State<FridgePage> {
               size: 20,
               color: Color(0xff7C8C80),
             ),
+            suffixIcon: _searchController.text.isNotEmpty
+                ? IconButton(
+                    onPressed: () {
+                      _searchController.clear();
+
+                      setState(() {});
+                    },
+
+                    icon: const Icon(Icons.close, size: 18),
+                  )
+                : null,
+
+            border: InputBorder.none,
+
+            contentPadding: const EdgeInsets.symmetric(vertical: 13),
           ),
         ),
       ),
