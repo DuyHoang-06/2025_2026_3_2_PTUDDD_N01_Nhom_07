@@ -1,9 +1,18 @@
+import 'dart:typed_data';
+
 class Food {
   final String id;
-  final String name;
-  final int quantity;
-  final String category;
-  final DateTime expiryDate;
+
+  String name;
+  int quantity;
+  String category;
+  DateTime expiryDate;
+
+  // Ảnh mặc định trong assets
+  String? image;
+
+  // Ảnh lấy từ camera / thư viện
+  Uint8List? imageBytes;
 
   Food({
     required this.id,
@@ -11,5 +20,7 @@ class Food {
     required this.quantity,
     required this.category,
     required this.expiryDate,
+    this.image,
+    this.imageBytes,
   });
 }
