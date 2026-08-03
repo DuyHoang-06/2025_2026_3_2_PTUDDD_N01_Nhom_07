@@ -42,7 +42,12 @@ class _AiPageState extends State<AiPage> {
 
       body: SafeArea(
         child: Column(
-          children: [_buildHeader(), _buildSearchBar(), _buildCategoryFilter()],
+          children: [
+            _buildHeader(),
+            _buildSearchBar(),
+            _buildCategoryFilter(),
+            Expanded(child: _buildRecipeGrid()),
+          ],
         ),
       ),
     );
@@ -161,6 +166,32 @@ class _AiPageState extends State<AiPage> {
           );
         },
       ),
+    );
+  }
+
+  Widget _buildRecipeGrid() {
+    final recipes = _filteredRecipes;
+
+    return GridView.builder(
+      padding: const EdgeInsets.fromLTRB(16, 8, 16, 20),
+
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+
+        crossAxisSpacing: 10,
+
+        mainAxisSpacing: 10,
+
+        childAspectRatio: 0.78,
+      ),
+
+      itemCount: recipes.length,
+
+      itemBuilder: (context, index) {
+        final recipe = recipes[index];
+
+        //return Recipe Card
+      },
     );
   }
 }
