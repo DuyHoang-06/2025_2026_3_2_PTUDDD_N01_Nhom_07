@@ -150,8 +150,53 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> {
 
         Row(
           children: [
-            // widget các infor items
+            _buildInfoItem(
+              icon: Icons.star,
+              value: widget.recipe.rating.toString(),
+              color: Colors.orange,
+            ),
+
+            const SizedBox(width: 16),
+
+            _buildInfoItem(
+              icon: Icons.access_time,
+              value: '${widget.recipe.cookingTime} phút',
+              color: Colors.grey,
+            ),
+
+            const SizedBox(width: 16),
+
+            _buildInfoItem(
+              icon: Icons.local_fire_department,
+              value: '${widget.recipe.calories} kcal',
+              color: Colors.grey,
+            ),
           ],
+        ),
+      ],
+    );
+  }
+
+  // ============================================================
+  // Info Item
+  // ============================================================
+  Widget _buildInfoItem({
+    required IconData icon,
+    required String value,
+    required Color color,
+  }) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+
+      children: [
+        Icon(icon, size: 14, color: color),
+
+        const SizedBox(width: 4),
+
+        Text(
+          value,
+
+          style: const TextStyle(fontSize: 10, color: Color(0xff657067)),
         ),
       ],
     );
