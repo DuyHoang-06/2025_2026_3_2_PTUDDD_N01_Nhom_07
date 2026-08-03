@@ -18,7 +18,7 @@ class _AiPageState extends State<AiPage> {
           children: [
             _buildHeader(),
 
-            //_buildSearchBar(),
+            _buildSearchBar(),
 
             //_buildCategoryFilter(),
           ],
@@ -40,6 +40,34 @@ class _AiPageState extends State<AiPage> {
             fontSize: 18,
             fontWeight: FontWeight.bold,
             color: Color(0xff1D3022),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSearchBar() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+
+      child: Container(
+        height: 38,
+
+        decoration: BoxDecoration(
+          color: const Color(0xffEAF3EC),
+          borderRadius: BorderRadius.circular(20),
+        ),
+
+        child: const TextField(
+          decoration: InputDecoration(
+            hintText: 'Tìm kiếm công thức...',
+            hintStyle: TextStyle(fontSize: 10, color: Colors.grey),
+
+            prefixIcon: Icon(Icons.search, size: 16, color: Colors.grey),
+
+            border: InputBorder.none,
+
+            contentPadding: EdgeInsets.symmetric(vertical: 10),
           ),
         ),
       ),
