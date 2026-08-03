@@ -2,6 +2,14 @@ class User {
   final String id;
   final String name;
   final String email;
+  final String? phone;
+  final String? avatar;
 
-  User({required this.id, required this.name, required this.email});
+  const User({
+    required this.id,
+    required this.name,
+    required this.email,
+    this.phone,
+    this.avatar,
+  });
 }
