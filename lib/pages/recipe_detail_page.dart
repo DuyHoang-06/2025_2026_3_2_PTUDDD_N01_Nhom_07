@@ -128,7 +128,7 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> {
 
       children: [
         Text(
-          widget.recipe.name,
+          tr.locale == 'en' ? widget.recipe.nameEn : widget.recipe.nameVi,
 
           style: const TextStyle(
             fontSize: 20,
@@ -209,9 +209,14 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> {
 
         const SizedBox(height: 10),
 
-        ...widget.recipe.ingredients.map((ingredient) {
-          return _buildIngredientItem(ingredient);
-        }),
+        ...() {
+          final list = tr.locale == 'en'
+              ? widget.recipe.ingredientsEn
+              : widget.recipe.ingredientsVi;
+          return list.map((ingredient) {
+            return _buildIngredientItem(ingredient);
+          });
+        }(),
       ],
     );
   }
@@ -266,12 +271,17 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> {
 
         const SizedBox(height: 12),
 
-        ...List.generate(widget.recipe.steps.length, (index) {
-          return _buildStepItem(
-            stepNumber: index + 1,
-            content: widget.recipe.steps[index],
-          );
-        }),
+        ...() {
+          final list = tr.locale == 'en'
+              ? widget.recipe.stepsEn
+              : widget.recipe.stepsVi;
+          return List.generate(list.length, (index) {
+            return _buildStepItem(
+              stepNumber: index + 1,
+              content: list[index],
+            );
+          });
+        }(),
       ],
     );
   }
