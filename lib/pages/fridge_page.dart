@@ -5,6 +5,7 @@ import 'package:image_picker/image_picker.dart';
 
 import '../data/fake_food.dart';
 import '../models/food.dart';
+import '../widgets/language_provider.dart';
 
 class FridgePage extends StatefulWidget {
   const FridgePage({super.key});
@@ -14,23 +15,16 @@ class FridgePage extends StatefulWidget {
 }
 
 class _FridgePageState extends State<FridgePage> {
-  // ============================================================
-  // CONTROLLERS
-  // ============================================================
-
+      
   final TextEditingController _searchController = TextEditingController();
 
   final ImagePicker _imagePicker = ImagePicker();
 
-  // Danh mục hiện tại
-  String _selectedCategory = 'Tất cả';
-
-  // ============================================================
-  // CATEGORY
-  // ============================================================
+    String _selectedCategory = 'Tất cả';
 
   List<String> get categories {
-    final List<String> result = ['Tất cả'];
+    final tr = LanguageProvider.t(context);
+    final List<String> result = [tr.text('all')];
 
     for (final food in fakeFoods) {
       if (!result.contains(food.category)) {
@@ -41,22 +35,18 @@ class _FridgePageState extends State<FridgePage> {
     return result;
   }
 
-  // ============================================================
-  // FILTER FOOD
-  // ============================================================
-
   List<Food> get filteredFoods {
+    final tr = LanguageProvider.t(context);
+    final allLabel = tr.text('all');
     List<Food> result = List.from(fakeFoods);
 
-    // Lọc danh mục
-    if (_selectedCategory != 'Tất cả') {
+        if (_selectedCategory != allLabel) {
       result = result.where((food) {
         return food.category == _selectedCategory;
       }).toList();
     }
 
-    // Tìm kiếm
-    final keyword = _searchController.text.trim().toLowerCase();
+        final keyword = _searchController.text.trim().toLowerCase();
 
     if (keyword.isNotEmpty) {
       result = result.where((food) {
@@ -66,10 +56,6 @@ class _FridgePageState extends State<FridgePage> {
 
     return result;
   }
-
-  // ============================================================
-  // BUILD
-  // ============================================================
 
   @override
   Widget build(BuildContext context) {
@@ -106,11 +92,8 @@ class _FridgePageState extends State<FridgePage> {
     );
   }
 
-  // ============================================================
-  // APP BAR
-  // ============================================================
-
   PreferredSizeWidget _buildAppBar() {
+    final tr = LanguageProvider.t(context);
     return AppBar(
       backgroundColor: const Color(0xffF7FAF6),
 
@@ -118,26 +101,26 @@ class _FridgePageState extends State<FridgePage> {
 
       centerTitle: false,
 
-      title: const Column(
+      title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
 
         children: [
           Text(
-            'Tủ lạnh của tôi',
+            tr.text('fridge_title'),
 
-            style: TextStyle(
+            style: const TextStyle(
               color: Color(0xff19351F),
               fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
           ),
 
-          SizedBox(height: 2),
+          const SizedBox(height: 2),
 
           Text(
-            'Quản lý thực phẩm của bạn',
+            tr.text('fridge_subtitle'),
 
-            style: TextStyle(color: Color(0xff7C897F), fontSize: 11),
+            style: const TextStyle(color: Color(0xff7C897F), fontSize: 11),
           ),
         ],
       ),
@@ -156,11 +139,8 @@ class _FridgePageState extends State<FridgePage> {
     );
   }
 
-  // ============================================================
-  // SEARCH
-  // ============================================================
-
   Widget _buildSearch() {
+    final tr = LanguageProvider.t(context);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
 
@@ -183,7 +163,7 @@ class _FridgePageState extends State<FridgePage> {
           },
 
           decoration: InputDecoration(
-            hintText: 'Tìm kiếm thực phẩm...',
+            hintText: tr.text('fridge_search_hint'),
 
             hintStyle: const TextStyle(color: Color(0xff9AA49C), fontSize: 12),
 
@@ -213,10 +193,6 @@ class _FridgePageState extends State<FridgePage> {
       ),
     );
   }
-
-  // ============================================================
-  // CATEGORY FILTER
-  // ============================================================
 
   Widget _buildCategoryFilter() {
     return SizedBox(
@@ -278,10 +254,6 @@ class _FridgePageState extends State<FridgePage> {
     );
   }
 
-  // ============================================================
-  // FOOD LIST
-  // ============================================================
-
   Widget _buildFoodList() {
     final foods = filteredFoods;
 
@@ -304,11 +276,8 @@ class _FridgePageState extends State<FridgePage> {
     );
   }
 
-  // ============================================================
-  // FOOD CARD
-  // ============================================================
-
   Widget _buildFoodCard(Food food) {
+    final tr = LanguageProvider.t(context);
     final status = _getExpiryStatus(food.expiryDate);
 
     return Container(
@@ -324,8 +293,7 @@ class _FridgePageState extends State<FridgePage> {
 
       child: Row(
         children: [
-          // IMAGE
-          Container(
+                    Container(
             width: 70,
             height: 70,
 
@@ -344,8 +312,7 @@ class _FridgePageState extends State<FridgePage> {
 
           const SizedBox(width: 12),
 
-          // INFORMATION
-          Expanded(
+                    Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
 
@@ -390,7 +357,7 @@ class _FridgePageState extends State<FridgePage> {
                     const SizedBox(width: 4),
 
                     Text(
-                      'Số lượng: ${food.quantity}',
+                      '${tr.text('fridge_quantity')}: ${food.quantity}',
 
                       style: const TextStyle(
                         color: Color(0xff68756C),
@@ -407,8 +374,7 @@ class _FridgePageState extends State<FridgePage> {
             ),
           ),
 
-          // MENU
-          PopupMenuButton<String>(
+                    PopupMenuButton<String>(
             icon: const Icon(Icons.more_vert, color: Color(0xff7C887F)),
 
             onSelected: (value) {
@@ -422,17 +388,17 @@ class _FridgePageState extends State<FridgePage> {
             },
 
             itemBuilder: (context) {
-              return const [
+              return [
                 PopupMenuItem(
                   value: 'edit',
 
                   child: Row(
                     children: [
-                      Icon(Icons.edit_outlined, size: 18),
+                      const Icon(Icons.edit_outlined, size: 18),
 
-                      SizedBox(width: 10),
+                      const SizedBox(width: 10),
 
-                      Text('Sửa'),
+                      Text(tr.text('edit')),
                     ],
                   ),
                 ),
@@ -442,11 +408,13 @@ class _FridgePageState extends State<FridgePage> {
 
                   child: Row(
                     children: [
-                      Icon(Icons.delete_outline, size: 18, color: Colors.red),
+                      const Icon(Icons.delete_outline,
+                          size: 18, color: Colors.red),
 
-                      SizedBox(width: 10),
+                      const SizedBox(width: 10),
 
-                      Text('Xóa', style: TextStyle(color: Colors.red)),
+                      Text(tr.text('delete'),
+                          style: const TextStyle(color: Colors.red)),
                     ],
                   ),
                 ),
@@ -458,15 +426,8 @@ class _FridgePageState extends State<FridgePage> {
     );
   }
 
-  // ============================================================
-  // IMAGE
-  // ============================================================
-
   Widget _buildFoodImage(Food food, {double width = 70, double height = 70}) {
-    // ----------------------------------------------------------
-    // ẢNH TỪ CAMERA / THƯ VIỆN
-    // ----------------------------------------------------------
-
+            
     if (food.imageBytes != null) {
       return Image.memory(
         food.imageBytes!,
@@ -481,10 +442,6 @@ class _FridgePageState extends State<FridgePage> {
         },
       );
     }
-
-    // ----------------------------------------------------------
-    // ẢNH ASSETS
-    // ----------------------------------------------------------
 
     if (food.image != null && food.image!.startsWith('assets/')) {
       return Image.asset(
@@ -514,10 +471,7 @@ class _FridgePageState extends State<FridgePage> {
     );
   }
 
-  // ============================================================
-  // EXPIRY STATUS
-  // ============================================================
-
+  /// Trả về key translation thay vì chuỗi cứng, để UI tự dịch.
   String _getExpiryStatus(DateTime expiryDate) {
     final today = DateTime.now();
 
@@ -532,28 +486,29 @@ class _FridgePageState extends State<FridgePage> {
     final difference = expiryOnly.difference(todayOnly).inDays;
 
     if (difference < 0) {
-      return 'Đã hết hạn';
+      return 'status_expired';
     }
 
     if (difference <= 3) {
-      return 'Sắp hết hạn';
+      return 'status_expiring';
     }
 
-    return 'Còn hạn';
+    return 'status_fresh';
   }
 
-  Widget _buildExpiryBadge(String status) {
+  Widget _buildExpiryBadge(String statusKey) {
+    final tr = LanguageProvider.t(context);
     Color background;
     Color textColor;
     IconData icon;
 
-    if (status == 'Đã hết hạn') {
+    if (statusKey == 'status_expired') {
       background = const Color(0xffffeeee);
 
       textColor = const Color(0xffE53935);
 
       icon = Icons.error_outline;
-    } else if (status == 'Sắp hết hạn') {
+    } else if (statusKey == 'status_expiring') {
       background = const Color(0xfffff5df);
 
       textColor = const Color(0xffF39C12);
@@ -585,7 +540,7 @@ class _FridgePageState extends State<FridgePage> {
           const SizedBox(width: 4),
 
           Text(
-            status,
+            tr.text(statusKey),
 
             style: TextStyle(
               color: textColor,
@@ -598,11 +553,8 @@ class _FridgePageState extends State<FridgePage> {
     );
   }
 
-  // ============================================================
-  // EMPTY
-  // ============================================================
-
   Widget _buildEmptyState() {
+    final tr = LanguageProvider.t(context);
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -629,10 +581,10 @@ class _FridgePageState extends State<FridgePage> {
 
           const SizedBox(height: 15),
 
-          const Text(
-            'Không tìm thấy thực phẩm',
+          Text(
+            tr.text('fridge_empty_title'),
 
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 14,
 
               fontWeight: FontWeight.bold,
@@ -643,21 +595,18 @@ class _FridgePageState extends State<FridgePage> {
 
           const SizedBox(height: 5),
 
-          const Text(
-            'Hãy thử tìm kiếm với từ khóa khác',
+          Text(
+            tr.text('fridge_empty_subtitle'),
 
-            style: TextStyle(fontSize: 10, color: Color(0xff89958C)),
+            style: const TextStyle(fontSize: 10, color: Color(0xff89958C)),
           ),
         ],
       ),
     );
   }
 
-  // ============================================================
-  // PICK IMAGE
-  // ============================================================
-
   Future<Uint8List?> _pickImage(ImageSource source) async {
+    final tr = LanguageProvider.t(context);
     try {
       final XFile? pickedFile = await _imagePicker.pickImage(
         source: source,
@@ -674,17 +623,14 @@ class _FridgePageState extends State<FridgePage> {
 
       return await pickedFile.readAsBytes();
     } catch (e) {
-      _showMessage('Không thể chọn ảnh');
+      _showMessage(tr.text('picker_error'));
 
       return null;
     }
   }
 
-  // ============================================================
-  // CHOOSE IMAGE
-  // ============================================================
-
   void _showImagePicker({required Function(Uint8List) onImageSelected}) {
+    final tr = LanguageProvider.t(context);
     showModalBottomSheet(
       context: context,
 
@@ -701,16 +647,16 @@ class _FridgePageState extends State<FridgePage> {
               mainAxisSize: MainAxisSize.min,
 
               children: [
-                const Text(
-                  'Chọn ảnh thực phẩm',
+                Text(
+                  tr.text('picker_title'),
 
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                      fontSize: 16, fontWeight: FontWeight.bold),
                 ),
 
                 const SizedBox(height: 10),
 
-                // GALLERY
-                ListTile(
+                                ListTile(
                   leading: Container(
                     width: 42,
                     height: 42,
@@ -728,7 +674,7 @@ class _FridgePageState extends State<FridgePage> {
                     ),
                   ),
 
-                  title: const Text('Chọn từ thư viện'),
+                  title: Text(tr.text('picker_gallery')),
 
                   onTap: () async {
                     Navigator.pop(context);
@@ -741,8 +687,7 @@ class _FridgePageState extends State<FridgePage> {
                   },
                 ),
 
-                // CAMERA
-                ListTile(
+                                ListTile(
                   leading: Container(
                     width: 42,
                     height: 42,
@@ -760,7 +705,7 @@ class _FridgePageState extends State<FridgePage> {
                     ),
                   ),
 
-                  title: const Text('Chụp ảnh bằng camera'),
+                  title: Text(tr.text('picker_camera')),
 
                   onTap: () async {
                     Navigator.pop(context);
@@ -780,11 +725,8 @@ class _FridgePageState extends State<FridgePage> {
     );
   }
 
-  // ============================================================
-  // ADD / EDIT FORM
-  // ============================================================
-
   void _showFoodForm({Food? food}) {
+    final tr = LanguageProvider.t(context);
     final bool isEditing = food != null;
 
     final nameController = TextEditingController(text: food?.name ?? '');
@@ -824,7 +766,8 @@ class _FridgePageState extends State<FridgePage> {
               decoration: const BoxDecoration(
                 color: Colors.white,
 
-                borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
+                borderRadius:
+                    BorderRadius.vertical(top: Radius.circular(25)),
               ),
 
               child: SingleChildScrollView(
@@ -832,12 +775,13 @@ class _FridgePageState extends State<FridgePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
 
                   children: [
-                    // TITLE
-                    Row(
+                                        Row(
                       children: [
                         Expanded(
                           child: Text(
-                            isEditing ? 'Sửa thực phẩm' : 'Thêm thực phẩm',
+                            isEditing
+                                ? tr.text('form_edit_food')
+                                : tr.text('form_add_food'),
 
                             style: const TextStyle(
                               fontSize: 18,
@@ -861,8 +805,7 @@ class _FridgePageState extends State<FridgePage> {
 
                     const SizedBox(height: 15),
 
-                    // NAME
-                    _buildInputLabel('Tên thực phẩm'),
+                                        _buildInputLabel(tr.text('form_label_name')),
 
                     const SizedBox(height: 6),
 
@@ -870,15 +813,14 @@ class _FridgePageState extends State<FridgePage> {
                       controller: nameController,
 
                       decoration: _inputDecoration(
-                        'Ví dụ: Cà chua',
+                        tr.text('form_name_hint'),
                         Icons.fastfood_outlined,
                       ),
                     ),
 
                     const SizedBox(height: 14),
 
-                    // QUANTITY
-                    _buildInputLabel('Số lượng'),
+                                        _buildInputLabel(tr.text('form_label_quantity')),
 
                     const SizedBox(height: 6),
 
@@ -888,38 +830,37 @@ class _FridgePageState extends State<FridgePage> {
                       keyboardType: TextInputType.number,
 
                       decoration: _inputDecoration(
-                        'Ví dụ: 5',
+                        tr.text('form_quantity_hint'),
                         Icons.inventory_2_outlined,
                       ),
                     ),
 
                     const SizedBox(height: 14),
 
-                    // CATEGORY
-                    _buildInputLabel('Danh mục'),
+                                        _buildInputLabel(tr.text('form_label_category')),
 
                     const SizedBox(height: 6),
 
                     DropdownButtonFormField<String>(
                       value: selectedCategory,
 
-                      decoration: _inputDecoration('', Icons.category_outlined),
+                      decoration: _inputDecoration(
+                          '', Icons.category_outlined),
 
-                      items:
-                          const [
-                            'Rau củ',
-                            'Thịt & Cá',
-                            'Đồ uống',
-                            'Trái cây',
-                            'Sữa',
-                            'Khác',
-                          ].map((category) {
-                            return DropdownMenuItem<String>(
-                              value: category,
+                      items: [
+                        tr.text('category_vegetable'),
+                        tr.text('category_meat'),
+                        tr.text('category_drink'),
+                        tr.text('category_fruit'),
+                        tr.text('category_milk'),
+                        tr.text('category_other'),
+                      ].map((category) {
+                        return DropdownMenuItem<String>(
+                          value: category,
 
-                              child: Text(category),
-                            );
-                          }).toList(),
+                          child: Text(category),
+                        );
+                      }).toList(),
 
                       onChanged: (value) {
                         if (value != null) {
@@ -932,8 +873,7 @@ class _FridgePageState extends State<FridgePage> {
 
                     const SizedBox(height: 14),
 
-                    // EXPIRY
-                    _buildInputLabel('Ngày hết hạn'),
+                                        _buildInputLabel(tr.text('form_label_expiry')),
 
                     const SizedBox(height: 6),
 
@@ -970,7 +910,8 @@ class _FridgePageState extends State<FridgePage> {
 
                           borderRadius: BorderRadius.circular(12),
 
-                          border: Border.all(color: const Color(0xffE1E8E2)),
+                          border:
+                              Border.all(color: const Color(0xffE1E8E2)),
                         ),
 
                         child: Row(
@@ -1009,8 +950,7 @@ class _FridgePageState extends State<FridgePage> {
 
                     const SizedBox(height: 14),
 
-                    // IMAGE
-                    _buildInputLabel('Ảnh thực phẩm'),
+                                        _buildInputLabel(tr.text('form_label_image')),
 
                     const SizedBox(height: 8),
 
@@ -1037,7 +977,8 @@ class _FridgePageState extends State<FridgePage> {
 
                           borderRadius: BorderRadius.circular(14),
 
-                          border: Border.all(color: const Color(0xffE1E8E2)),
+                          border:
+                              Border.all(color: const Color(0xffE1E8E2)),
                         ),
 
                         child: _buildPreviewImage(
@@ -1049,16 +990,16 @@ class _FridgePageState extends State<FridgePage> {
 
                     const SizedBox(height: 8),
 
-                    const Text(
-                      'Nhấn vào ảnh để chọn từ thư viện hoặc chụp ảnh bằng camera',
+                    Text(
+                      tr.text('form_image_help'),
 
-                      style: TextStyle(fontSize: 9, color: Color(0xff8A968D)),
+                      style: const TextStyle(
+                          fontSize: 9, color: Color(0xff8A968D)),
                     ),
 
                     const SizedBox(height: 22),
 
-                    // SAVE
-                    SizedBox(
+                                        SizedBox(
                       width: double.infinity,
 
                       height: 50,
@@ -1072,8 +1013,8 @@ class _FridgePageState extends State<FridgePage> {
 
                             name: nameController.text.trim(),
 
-                            quantity:
-                                int.tryParse(quantityController.text.trim()) ??
+                            quantity: int.tryParse(
+                                    quantityController.text.trim()) ??
                                 0,
 
                             category: selectedCategory,
@@ -1099,7 +1040,9 @@ class _FridgePageState extends State<FridgePage> {
                         ),
 
                         child: Text(
-                          isEditing ? 'Lưu thay đổi' : 'Thêm thực phẩm',
+                          isEditing
+                              ? tr.text('form_save_changes')
+                              : tr.text('form_add_button'),
 
                           style: const TextStyle(
                             fontSize: 13,
@@ -1119,11 +1062,8 @@ class _FridgePageState extends State<FridgePage> {
     );
   }
 
-  // ============================================================
-  // IMAGE PREVIEW
-  // ============================================================
-
   Widget _buildPreviewImage(Uint8List? imageBytes, String? assetImage) {
+    final tr = LanguageProvider.t(context);
     if (imageBytes != null) {
       return ClipRRect(
         borderRadius: BorderRadius.circular(14),
@@ -1156,26 +1096,23 @@ class _FridgePageState extends State<FridgePage> {
       );
     }
 
-    return const Column(
+    return Column(
       mainAxisAlignment: MainAxisAlignment.center,
 
       children: [
-        Icon(Icons.add_a_photo_outlined, size: 35, color: Color(0xff7D9080)),
+        const Icon(Icons.add_a_photo_outlined,
+            size: 35, color: Color(0xff7D9080)),
 
-        SizedBox(height: 8),
+        const SizedBox(height: 8),
 
         Text(
-          'Thêm ảnh',
+          tr.text('form_image_add'),
 
-          style: TextStyle(fontSize: 11, color: Color(0xff7D9080)),
+          style: const TextStyle(fontSize: 11, color: Color(0xff7D9080)),
         ),
       ],
     );
   }
-
-  // ============================================================
-  // SAVE FOOD
-  // ============================================================
 
   void _saveFood({
     required Food? food,
@@ -1194,35 +1131,24 @@ class _FridgePageState extends State<FridgePage> {
 
     required String? assetImage,
   }) {
-    // Kiểm tra tên
-    if (name.isEmpty) {
-      _showMessage('Vui lòng nhập tên thực phẩm');
+    final tr = LanguageProvider.t(context);
+        if (name.isEmpty) {
+      _showMessage(tr.text('msg_name_required'));
 
       return;
     }
 
-    // Kiểm tra số lượng
-    if (quantity <= 0) {
-      _showMessage('Số lượng phải lớn hơn 0');
+        if (quantity <= 0) {
+      _showMessage(tr.text('msg_quantity_invalid'));
 
       return;
     }
-
-    // ==========================================================
-    // EDIT
-    // ==========================================================
 
     if (isEditing && food != null) {
-      // Tìm thực phẩm khác
-      // có cùng tên
-      final duplicateIndex = fakeFoods.indexWhere((item) {
+                  final duplicateIndex = fakeFoods.indexWhere((item) {
         return item.id != food.id &&
             item.name.trim().toLowerCase() == name.trim().toLowerCase();
       });
-
-      // --------------------------------------------------------
-      // TRÙNG TÊN
-      // --------------------------------------------------------
 
       if (duplicateIndex != -1) {
         setState(() {
@@ -1245,14 +1171,10 @@ class _FridgePageState extends State<FridgePage> {
 
         Navigator.pop(context);
 
-        _showMessage('Tên trùng, đã cộng dồn số lượng');
+        _showMessage(tr.text('msg_merged_quantity'));
 
         return;
       }
-
-      // --------------------------------------------------------
-      // KHÔNG TRÙNG
-      // --------------------------------------------------------
 
       setState(() {
         food.name = name;
@@ -1274,22 +1196,14 @@ class _FridgePageState extends State<FridgePage> {
 
       Navigator.pop(context);
 
-      _showMessage('Đã cập nhật thực phẩm');
+      _showMessage(tr.text('msg_updated'));
 
       return;
     }
 
-    // ==========================================================
-    // ADD
-    // ==========================================================
-
     final existingIndex = fakeFoods.indexWhere((item) {
       return item.name.trim().toLowerCase() == name.trim().toLowerCase();
     });
-
-    // ----------------------------------------------------------
-    // ĐÃ TỒN TẠI
-    // ----------------------------------------------------------
 
     if (existingIndex != -1) {
       setState(() {
@@ -1308,14 +1222,11 @@ class _FridgePageState extends State<FridgePage> {
 
       Navigator.pop(context);
 
-      _showMessage('Đã cộng thêm $quantity vào $name');
+      _showMessage(
+          '${tr.text('msg_quantity_added_to')} $quantity → $name');
 
       return;
     }
-
-    // ----------------------------------------------------------
-    // CHƯA TỒN TẠI
-    // ----------------------------------------------------------
 
     final newFood = Food(
       id: DateTime.now().millisecondsSinceEpoch.toString(),
@@ -1339,14 +1250,11 @@ class _FridgePageState extends State<FridgePage> {
 
     Navigator.pop(context);
 
-    _showMessage('Đã thêm $name vào tủ lạnh');
+    _showMessage('${tr.text('msg_added_to_fridge')}: $name');
   }
 
-  // ============================================================
-  // DELETE
-  // ============================================================
-
   void _confirmDelete(Food food) {
+    final tr = LanguageProvider.t(context);
     showDialog(
       context: context,
 
@@ -1356,14 +1264,15 @@ class _FridgePageState extends State<FridgePage> {
             borderRadius: BorderRadius.circular(18),
           ),
 
-          title: const Text(
-            'Xóa thực phẩm?',
+          title: Text(
+            tr.text('delete_title'),
 
-            style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+            style:
+                const TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
           ),
 
           content: Text(
-            'Bạn có chắc muốn xóa "${food.name}" khỏi tủ lạnh không?',
+            '${tr.text('delete_message')} "${food.name}"?',
 
             style: const TextStyle(fontSize: 12, color: Color(0xff68756C)),
           ),
@@ -1374,10 +1283,10 @@ class _FridgePageState extends State<FridgePage> {
                 Navigator.pop(context);
               },
 
-              child: const Text(
-                'Hủy',
+              child: Text(
+                tr.text('cancel'),
 
-                style: TextStyle(color: Color(0xff68756C)),
+                style: const TextStyle(color: Color(0xff68756C)),
               ),
             ),
 
@@ -1391,13 +1300,13 @@ class _FridgePageState extends State<FridgePage> {
 
                 Navigator.pop(context);
 
-                _showMessage('Đã xóa ${food.name}');
+                _showMessage('${tr.text('msg_deleted')} ${food.name}');
               },
 
-              child: const Text(
-                'Xóa',
+              child: Text(
+                tr.text('delete'),
 
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.red,
 
                   fontWeight: FontWeight.bold,
@@ -1409,10 +1318,6 @@ class _FridgePageState extends State<FridgePage> {
       },
     );
   }
-
-  // ============================================================
-  // INPUT LABEL
-  // ============================================================
 
   Widget _buildInputLabel(String title) {
     return Text(
@@ -1428,17 +1333,13 @@ class _FridgePageState extends State<FridgePage> {
     );
   }
 
-  // ============================================================
-  // INPUT DECORATION
-  // ============================================================
-
   InputDecoration _inputDecoration(String hint, IconData icon) {
     return InputDecoration(
       hintText: hint,
 
       hintStyle: const TextStyle(fontSize: 11, color: Color(0xff9AA49C)),
 
-      prefixIcon: Icon(icon, size: 19, color: Color(0xff718076)),
+      prefixIcon: Icon(icon, size: 19, color: const Color(0xff718076)),
 
       filled: true,
 
@@ -1464,10 +1365,6 @@ class _FridgePageState extends State<FridgePage> {
     );
   }
 
-  // ============================================================
-  // DATE
-  // ============================================================
-
   String _formatDate(DateTime date) {
     final day = date.day.toString().padLeft(2, '0');
 
@@ -1478,10 +1375,6 @@ class _FridgePageState extends State<FridgePage> {
     return '$day/$month/$year';
   }
 
-  // ============================================================
-  // MESSAGE
-  // ============================================================
-
   void _showMessage(String message) {
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
@@ -1489,10 +1382,6 @@ class _FridgePageState extends State<FridgePage> {
         SnackBar(content: Text(message), duration: const Duration(seconds: 2)),
       );
   }
-
-  // ============================================================
-  // DISPOSE
-  // ============================================================
 
   @override
   void dispose() {

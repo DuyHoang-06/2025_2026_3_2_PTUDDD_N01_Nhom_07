@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../data/fake_food.dart';
 import '../models/food.dart';
+import '../widgets/language_provider.dart';
 import 'fridge_page.dart';
 import 'ai_page.dart';
 import 'profile_page.dart';
@@ -20,18 +21,12 @@ class _HomePageState extends State<HomePage> {
     AiPage(),
     ProfilePage(),
   ];
-  // ==============================
-  // DATA
-  // ==============================
-
+      
   List<Food> get foods => fakeFoods;
 
-  // Tổng số loại thực phẩm
-  int get totalFoods => foods.length;
+    int get totalFoods => foods.length;
 
-  // Thực phẩm sắp hết hạn
-  // Quy định: còn <= 3 ngày và chưa hết hạn
-  int get expiringFoods {
+      int get expiringFoods {
     final today = DateTime.now();
 
     return foods.where((food) {
@@ -41,18 +36,13 @@ class _HomePageState extends State<HomePage> {
     }).length;
   }
 
-  // Thực phẩm đã hết hạn
-  int get expiredFoods {
+    int get expiredFoods {
     final today = DateTime.now();
 
     return foods.where((food) {
       return food.expiryDate.isBefore(today);
     }).length;
   }
-
-  // ============================================================
-  // CATEGORY DATA
-  // ============================================================
 
   List<Map<String, dynamic>> get categories {
     final Map<String, int> categoryCounts = {};
@@ -75,22 +65,28 @@ class _HomePageState extends State<HomePage> {
     switch (category.toLowerCase()) {
       case 'rau củ':
       case 'rau':
+      case 'vegetable':
         return 'assets/imgs/categories/vegetable.png';
 
       case 'thịt & cá':
       case 'thịt':
       case 'cá':
+      case 'meat':
         return 'assets/imgs/categories/meat.png';
 
       case 'đồ uống':
       case 'đồ uống ':
+      case 'drink':
         return 'assets/imgs/categories/drink.jpg';
 
       case 'sữa':
       case 'sữa tươi ':
+      case 'dairy':
+      case 'milk':
         return 'assets/imgs/categories/whitemilk.png';
 
       case 'trái cây':
+      case 'fruit':
         return 'assets/imgs/categories/fruit.png';
 
       default:
@@ -102,26 +98,59 @@ class _HomePageState extends State<HomePage> {
     switch (category.toLowerCase()) {
       case 'rau củ':
       case 'rau':
+      case 'vegetable':
         return const Color(0xffE7F6E9);
 
       case 'thịt & cá':
       case 'thịt':
       case 'cá':
+      case 'meat':
         return const Color(0xffffeeee);
 
       case 'đồ uống':
       case 'đồ uống ':
+      case 'drink':
         return const Color(0xfffff3dd);
 
       case 'sữa':
       case 'sữa tươi ':
+      case 'dairy':
+      case 'milk':
         return const Color(0xffE4F4E7);
 
       case 'trái cây':
+      case 'fruit':
         return const Color(0xffffe8ed);
 
       default:
         return const Color(0xffE7F6E9);
+    }
+  }
+
+    String _categoryTranslationKey(String name) {
+    switch (name.toLowerCase()) {
+      case 'rau củ':
+      case 'rau':
+      case 'vegetable':
+        return 'category_vegetable';
+      case 'thịt & cá':
+      case 'thịt':
+      case 'cá':
+      case 'meat':
+        return 'category_meat';
+      case 'đồ uống':
+      case 'drink':
+        return 'category_drink';
+      case 'trái cây':
+      case 'fruit':
+        return 'category_fruit';
+      case 'sữa':
+      case 'sữa tươi':
+      case 'milk':
+      case 'dairy':
+        return 'category_milk';
+      default:
+        return 'category_other';
     }
   }
 
@@ -182,10 +211,6 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  // ============================================================
-  // HEADER
-  // ============================================================
-
   Widget _buildHeader() {
     return Row(
       children: [
@@ -211,6 +236,10 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ),
+
+                _buildLanguageToggle(),
+
+        const SizedBox(width: 8),
 
         Stack(
           children: [
@@ -266,34 +295,62 @@ class _HomePageState extends State<HomePage> {
       ],
     );
   }
-  // ============================================================
-  // SEARCH
-  // ============================================================
+
+  /// Nút toggle ngôn ngữ EN ↔ VI. Hiển thị locale hiện tại làm nhãn.
+  Widget _buildLanguageToggle() {
+    final provider = LanguageProvider.of(context);
+    final isVi = provider?.locale == 'vi';
+    return GestureDetector(
+      onTap: () => provider?.toggle(),
+      child: Container(
+        height: 36,
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xffE8EEE9)),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Icon(Icons.language, color: Color(0xff4CAF50), size: 16),
+            const SizedBox(width: 4),
+            Text(
+              isVi ? 'VI' : 'EN',
+              style: const TextStyle(
+                color: Color(0xff233328),
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 
   Widget _buildSearchBar() {
+    final tr = LanguageProvider.t(context);
     return Container(
       height: 42,
       decoration: BoxDecoration(
         color: const Color(0xffEDF5EE),
         borderRadius: BorderRadius.circular(14),
       ),
-      child: const TextField(
+      child: TextField(
         decoration: InputDecoration(
-          hintText: 'Tìm kiếm thực phẩm...',
-          hintStyle: TextStyle(color: Color(0xff87968B), fontSize: 12),
-          prefixIcon: Icon(Icons.search, size: 18, color: Color(0xff7D9181)),
+          hintText: tr.text('home_search_hint'),
+          hintStyle: const TextStyle(color: Color(0xff87968B), fontSize: 12),
+          prefixIcon: const Icon(Icons.search, size: 18, color: Color(0xff7D9181)),
           border: InputBorder.none,
-          contentPadding: EdgeInsets.symmetric(vertical: 12),
+          contentPadding: const EdgeInsets.symmetric(vertical: 12),
         ),
       ),
     );
   }
 
-  // ============================================================
-  // FRIDGE BANNER
-  // ============================================================
-
   Widget _buildFridgeBanner() {
+    final tr = LanguageProvider.t(context);
     return Container(
       width: double.infinity,
       height: 125,
@@ -306,9 +363,9 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'TỦ LẠNH CỦA TÔI',
-              style: TextStyle(
+            Text(
+              tr.text('home_greeting'),
+              style: const TextStyle(
                 color: Colors.white70,
                 fontSize: 9,
                 fontWeight: FontWeight.bold,
@@ -317,9 +374,9 @@ class _HomePageState extends State<HomePage> {
 
             const SizedBox(height: 3),
 
-            const Text(
-              'Duy Hoàng',
-              style: TextStyle(
+            Text(
+              tr.text('home_user_name'),
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
@@ -329,9 +386,11 @@ class _HomePageState extends State<HomePage> {
 
             Row(
               children: [
-                _buildBannerNumber(totalFoods.toString(), 'Tổng món'),
-                _buildBannerNumber(expiringFoods.toString(), 'Sắp hết hạn'),
-                _buildBannerNumber(expiredFoods.toString(), 'Hết hạn'),
+                _buildBannerNumber(totalFoods.toString(), tr.text('home_total')),
+                _buildBannerNumber(
+                    expiringFoods.toString(), tr.text('home_expiring')),
+                _buildBannerNumber(
+                    expiredFoods.toString(), tr.text('home_expired')),
               ],
             ),
           ],
@@ -365,24 +424,22 @@ class _HomePageState extends State<HomePage> {
 
           const SizedBox(width: 15),
 
-          if (title != 'Hết hạn')
+          if (title != 'Hết hạn' && title != 'Expired')
             Container(width: 1, height: 30, color: Colors.white24),
         ],
       ),
     );
   }
-  // ============================================================
-  // STATISTICS
-  // ============================================================
-
+      
   Widget _buildStatistics() {
+    final tr = LanguageProvider.t(context);
     return Row(
       children: [
         Expanded(
           child: _buildStatCard(
             icon: Icons.inventory_2_outlined,
             number: totalFoods.toString(),
-            title: 'Tổng Thực Phẩm',
+            title: tr.text('home_total_foods'),
             color: const Color(0xffE4F4E7),
             iconColor: const Color(0xff4CAF50),
           ),
@@ -394,7 +451,7 @@ class _HomePageState extends State<HomePage> {
           child: _buildStatCard(
             icon: Icons.warning_amber_rounded,
             number: expiringFoods.toString(),
-            title: 'Sắp Hết Hạn',
+            title: tr.text('home_soon_expired'),
             color: const Color(0xfffff6df),
             iconColor: const Color(0xffff9d00),
           ),
@@ -406,7 +463,7 @@ class _HomePageState extends State<HomePage> {
           child: _buildStatCard(
             icon: Icons.close,
             number: expiredFoods.toString(),
-            title: 'Đã Hết Hạn',
+            title: tr.text('home_already_expired'),
             color: const Color(0xffffeeee),
             iconColor: const Color(0xffff5252),
           ),
@@ -456,16 +513,13 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  // ============================================================
-  // CATEGORY
-  // ============================================================
-
   Widget _buildCategoryHeader() {
+    final tr = LanguageProvider.t(context);
     return Row(
       children: [
-        const Text(
-          'Danh Mục',
-          style: TextStyle(
+        Text(
+          tr.text('home_categories'),
+          style: const TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.bold,
             color: Color(0xff1D3022),
@@ -481,9 +535,9 @@ class _HomePageState extends State<HomePage> {
               MaterialPageRoute(builder: (context) => const FridgePage()),
             );
           },
-          child: const Text(
-            'Xem tất cả',
-            style: TextStyle(
+          child: Text(
+            tr.text('home_see_all'),
+            style: const TextStyle(
               color: Color(0xff4CAF50),
               fontSize: 10,
               fontWeight: FontWeight.bold,
@@ -495,6 +549,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildCategories() {
+    final tr = LanguageProvider.t(context);
     return SizedBox(
       height: 100,
       child: ListView.separated(
@@ -506,7 +561,7 @@ class _HomePageState extends State<HomePage> {
           final category = categories[index];
 
           return _buildCategoryCard(
-            name: category['name'],
+            name: tr.text(_categoryTranslationKey(category['name'])),
             image: category['image'],
             color: category['color'],
             count: category['count'],
@@ -522,6 +577,7 @@ class _HomePageState extends State<HomePage> {
     required Color color,
     required int count,
   }) {
+    final tr = LanguageProvider.t(context);
     return GestureDetector(
       onTap: () {
         print('Chọn danh mục: $name');
@@ -561,7 +617,7 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(height: 2),
 
             Text(
-              '$count món',
+              '$count ${tr.text('items_count')}',
               style: const TextStyle(fontSize: 8, color: Colors.grey),
             ),
           ],
@@ -570,11 +626,8 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  // ============================================================
-  // AI
-  // ============================================================
-
   Widget _buildAiHeader() {
+    final tr = LanguageProvider.t(context);
     return Row(
       children: [
         Container(
@@ -593,9 +646,9 @@ class _HomePageState extends State<HomePage> {
 
         const SizedBox(width: 7),
 
-        const Text(
-          'Gợi Ý AI Hôm Nay',
-          style: TextStyle(
+        Text(
+          tr.text('home_ai_today'),
+          style: const TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.bold,
             color: Color(0xff1D3022),
@@ -611,9 +664,9 @@ class _HomePageState extends State<HomePage> {
               MaterialPageRoute(builder: (context) => const AiPage()),
             );
           },
-          child: const Text(
-            'Thêm',
-            style: TextStyle(
+          child: Text(
+            tr.text('home_ai_more'),
+            style: const TextStyle(
               color: Color(0xff4CAF50),
               fontSize: 10,
               fontWeight: FontWeight.bold,
@@ -625,8 +678,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildFoodSuggestion() {
-    // Lấy thực phẩm sắp hết hạn đầu tiên
-    Food? food;
+    final tr = LanguageProvider.t(context);
+        Food? food;
 
     final today = DateTime.now();
 
@@ -678,18 +731,18 @@ class _HomePageState extends State<HomePage> {
                         color: const Color(0xff4CAF50),
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      child: const Row(
+                      child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.auto_awesome,
                             color: Colors.white,
                             size: 11,
                           ),
-                          SizedBox(width: 4),
+                          const SizedBox(width: 4),
                           Text(
-                            'AI Gợi Ý',
-                            style: TextStyle(
+                            tr.text('home_ai_badge'),
+                            style: const TextStyle(
                               color: Colors.white,
                               fontSize: 9,
                               fontWeight: FontWeight.bold,
@@ -709,8 +762,8 @@ class _HomePageState extends State<HomePage> {
               alignment: Alignment.centerLeft,
               child: Text(
                 food != null
-                    ? 'Món ăn với ${food.name}'
-                    : 'Chưa có gợi ý món ăn',
+                    ? '${tr.text('home_suggestion_with')} ${food.name}'
+                    : tr.text('home_suggestion_empty'),
                 style: const TextStyle(
                   fontSize: 13,
                   fontWeight: FontWeight.bold,

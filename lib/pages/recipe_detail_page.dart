@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/recipe.dart';
+import '../widgets/language_provider.dart';
 
 class RecipeDetailPage extends StatefulWidget {
   final Recipe recipe;
@@ -10,9 +11,6 @@ class RecipeDetailPage extends StatefulWidget {
   State<RecipeDetailPage> createState() => _RecipeDetailPageState();
 }
 
-// ============================================================
-// BUILD
-// ============================================================
 class _RecipeDetailPageState extends State<RecipeDetailPage> {
   @override
   Widget build(BuildContext context) {
@@ -50,10 +48,7 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> {
     );
   }
 
-  // ============================================================
-  // Top Image
-  // ============================================================
-  Widget _buildTopImage() {
+        Widget _buildTopImage() {
     return SizedBox(
       height: 190,
       width: double.infinity,
@@ -69,8 +64,7 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> {
             fit: BoxFit.cover,
           ),
 
-          // Nút quay lại
-          Positioned(
+                    Positioned(
             top: 12,
             left: 12,
 
@@ -97,15 +91,13 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> {
             ),
           ),
 
-          // Nút yêu thích
-          Positioned(
+                    Positioned(
             top: 12,
             right: 12,
 
             child: GestureDetector(
               onTap: () {
-                // Xử lý favorite recipe sau
-              },
+                              },
 
               child: Container(
                 width: 32,
@@ -129,10 +121,8 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> {
     );
   }
 
-  // ============================================================
-  // Recipe Info
-  // ============================================================
-  Widget _buildRecipeInfo() {
+        Widget _buildRecipeInfo() {
+    final tr = LanguageProvider.t(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
 
@@ -161,7 +151,8 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> {
 
             _buildInfoItem(
               icon: Icons.access_time,
-              value: '${widget.recipe.cookingTime} phút',
+              value:
+                  '${widget.recipe.cookingTime} ${tr.text('ai_minutes')}',
               color: Colors.grey,
             ),
 
@@ -169,7 +160,7 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> {
 
             _buildInfoItem(
               icon: Icons.local_fire_department,
-              value: '${widget.recipe.calories} kcal',
+              value: '${widget.recipe.calories} ${tr.text('ai_kcal')}',
               color: Colors.grey,
             ),
           ],
@@ -178,10 +169,7 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> {
     );
   }
 
-  // ============================================================
-  // Info Item
-  // ============================================================
-  Widget _buildInfoItem({
+        Widget _buildInfoItem({
     required IconData icon,
     required String value,
     required Color color,
@@ -203,18 +191,16 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> {
     );
   }
 
-  // ============================================================
-  // Ingredients
-  // ============================================================
-  Widget _buildIngredients() {
+        Widget _buildIngredients() {
+    final tr = LanguageProvider.t(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
 
       children: [
-        const Text(
-          'Nguyên Liệu',
+        Text(
+          tr.text('recipe_ingredients'),
 
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 15,
             fontWeight: FontWeight.bold,
             color: Color(0xff1D3022),
@@ -230,10 +216,7 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> {
     );
   }
 
-  // ============================================================
-  // Ingredient Item
-  // ============================================================
-  Widget _buildIngredientItem(String ingredient) {
+        Widget _buildIngredientItem(String ingredient) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 9),
 
@@ -265,18 +248,16 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> {
     );
   }
 
-  // ============================================================
-  // Steps of Cooking
-  // ============================================================
-  Widget _buildSteps() {
+        Widget _buildSteps() {
+    final tr = LanguageProvider.t(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
 
       children: [
-        const Text(
-          'Các Bước Thực Hiện',
+        Text(
+          tr.text('recipe_steps'),
 
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 15,
             fontWeight: FontWeight.bold,
             color: Color(0xff1D3022),
@@ -295,10 +276,7 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> {
     );
   }
 
-  // ============================================================
-  // Step Item
-  // ============================================================
-  Widget _buildStepItem({required int stepNumber, required String content}) {
+        Widget _buildStepItem({required int stepNumber, required String content}) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
 

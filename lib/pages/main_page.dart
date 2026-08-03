@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../widgets/language_provider.dart';
 import 'home_page.dart';
 import 'fridge_page.dart';
 import 'ai_page.dart';
@@ -24,6 +25,7 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
+    final tr = LanguageProvider.t(context);
     return Scaffold(
       body: SafeArea(child: _pages[_currentIndex]),
 
@@ -38,29 +40,29 @@ class _MainPageState extends State<MainPage> {
 
         type: BottomNavigationBarType.fixed,
 
-        items: const [
+        items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home_outlined),
-            activeIcon: Icon(Icons.home),
-            label: 'Trang chủ',
+            icon: const Icon(Icons.home_outlined),
+            activeIcon: const Icon(Icons.home),
+            label: tr.text('tab_home'),
           ),
 
           BottomNavigationBarItem(
-            icon: Icon(Icons.kitchen_outlined),
-            activeIcon: Icon(Icons.kitchen),
-            label: 'Tủ lạnh',
+            icon: const Icon(Icons.kitchen_outlined),
+            activeIcon: const Icon(Icons.kitchen),
+            label: tr.text('tab_fridge'),
           ),
 
           BottomNavigationBarItem(
-            icon: Icon(Icons.auto_awesome_outlined),
-            activeIcon: Icon(Icons.auto_awesome),
-            label: 'AI',
+            icon: const Icon(Icons.auto_awesome_outlined),
+            activeIcon: const Icon(Icons.auto_awesome),
+            label: tr.text('tab_ai'),
           ),
 
           BottomNavigationBarItem(
-            icon: Icon(Icons.person_outline),
-            activeIcon: Icon(Icons.person),
-            label: 'Cá nhân',
+            icon: const Icon(Icons.person_outline),
+            activeIcon: const Icon(Icons.person),
+            label: tr.text('tab_profile'),
           ),
         ],
       ),

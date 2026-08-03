@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../data/fake_recipe.dart';
 import '../models/recipe.dart';
+import '../widgets/language_provider.dart';
 import 'recipe_detail_page.dart';
 
 class AiPage extends StatefulWidget {
@@ -11,32 +12,26 @@ class AiPage extends StatefulWidget {
 }
 
 class _AiPageState extends State<AiPage> {
-  String _selectedCategory = 'Tất cả';
+      static const _categoryKeys = ['all', 'ai_cat_quick', 'ai_cat_healthy', 'ai_cat_korean'];
 
-  final List<String> _categories = [
-    'Tất cả',
-    'Nấu nhanh',
-    'Lành mạnh',
-    'Món Hàn',
-  ];
+  String _selectedCategoryKey = 'all';
 
-  // ============================================================
-  // Tạp getter cho recipes đã lọc theo danh mục
-  // ============================================================
-  List<Recipe> get _filteredRecipes {
-    if (_selectedCategory == 'Tất cả') {
+        List<Recipe> get _filteredRecipes {
+    final tr = LanguageProvider.t(context);
+    if (_selectedCategoryKey == 'all') {
       return fakeRecipes;
     }
 
+        final Map<String, String> categoryMap = {
+      'ai_cat_quick': tr.text('ai_cat_quick'),       'ai_cat_healthy': tr.text('ai_cat_healthy'),       'ai_cat_korean': tr.text('ai_cat_korean'),     };
+
+    final selectedLabel = categoryMap[_selectedCategoryKey];
     return fakeRecipes.where((recipe) {
-      return recipe.category == _selectedCategory;
+      return recipe.category == selectedLabel;
     }).toList();
   }
 
-  // ============================================================
-  // BUILD
-  // ============================================================
-  @override
+        @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xffF5FAF6),
@@ -54,10 +49,8 @@ class _AiPageState extends State<AiPage> {
     );
   }
 
-  // ============================================================
-  // HEADER
-  // ============================================================
-  Widget _buildHeader() {
+        Widget _buildHeader() {
+    final tr = LanguageProvider.t(context);
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 16, 16, 10),
 
@@ -65,7 +58,7 @@ class _AiPageState extends State<AiPage> {
         alignment: Alignment.centerLeft,
 
         child: Text(
-          'Thư Viện Công Thức',
+          tr.text('ai_title'),
           style: const TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
@@ -76,10 +69,8 @@ class _AiPageState extends State<AiPage> {
     );
   }
 
-  // ============================================================
-  // SEARCH BAR
-  // ============================================================
-  Widget _buildSearchBar() {
+        Widget _buildSearchBar() {
+    final tr = LanguageProvider.t(context);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
 
@@ -91,26 +82,25 @@ class _AiPageState extends State<AiPage> {
           borderRadius: BorderRadius.circular(20),
         ),
 
-        child: const TextField(
+        child: TextField(
           decoration: InputDecoration(
-            hintText: 'Tìm kiếm công thức...',
-            hintStyle: TextStyle(fontSize: 10, color: Colors.grey),
+            hintText: tr.text('ai_search_hint'),
+            hintStyle: const TextStyle(fontSize: 10, color: Colors.grey),
 
-            prefixIcon: Icon(Icons.search, size: 16, color: Colors.grey),
+            prefixIcon:
+                const Icon(Icons.search, size: 16, color: Colors.grey),
 
             border: InputBorder.none,
 
-            contentPadding: EdgeInsets.symmetric(vertical: 5),
+            contentPadding: const EdgeInsets.symmetric(vertical: 5),
           ),
         ),
       ),
     );
   }
 
-  // ============================================================
-  // CATEGORY FILTER
-  // ============================================================
-  Widget _buildCategoryFilter() {
+        Widget _buildCategoryFilter() {
+    final tr = LanguageProvider.t(context);
     return SizedBox(
       height: 38,
 
@@ -119,26 +109,27 @@ class _AiPageState extends State<AiPage> {
 
         scrollDirection: Axis.horizontal,
 
-        itemCount: _categories.length,
+        itemCount: _categoryKeys.length,
 
         separatorBuilder: (_, __) {
           return const SizedBox(width: 8);
         },
 
         itemBuilder: (context, index) {
-          final category = _categories[index];
-
-          final selected = category == _selectedCategory;
+          final key = _categoryKeys[index];
+          final label = tr.text(key);
+          final selected = key == _selectedCategoryKey;
 
           return GestureDetector(
             onTap: () {
               setState(() {
-                _selectedCategory = category;
+                _selectedCategoryKey = key;
               });
             },
 
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
 
               decoration: BoxDecoration(
                 color: selected ? const Color(0xff4CAF50) : Colors.white,
@@ -153,7 +144,7 @@ class _AiPageState extends State<AiPage> {
               ),
 
               child: Text(
-                category,
+                label,
 
                 style: TextStyle(
                   fontSize: 10,
@@ -170,10 +161,7 @@ class _AiPageState extends State<AiPage> {
     );
   }
 
-  // ============================================================
-  // RECIPE GRID
-  // ============================================================
-  Widget _buildRecipeGrid() {
+        Widget _buildRecipeGrid() {
     final recipes = _filteredRecipes;
 
     return GridView.builder(
@@ -199,10 +187,8 @@ class _AiPageState extends State<AiPage> {
     );
   }
 
-  // ============================================================
-  // RECIPE CARD
-  // ============================================================
-  Widget _buildRecipeCard(Recipe recipe) {
+        Widget _buildRecipeCard(Recipe recipe) {
+    final tr = LanguageProvider.t(context);
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -319,9 +305,10 @@ class _AiPageState extends State<AiPage> {
                       const SizedBox(width: 3),
 
                       Text(
-                        '${recipe.cookingTime} phút',
+                        '${recipe.cookingTime} ${tr.text('ai_minutes')}',
 
-                        style: const TextStyle(fontSize: 8, color: Colors.grey),
+                        style: const TextStyle(
+                            fontSize: 8, color: Colors.grey),
                       ),
 
                       const SizedBox(width: 8),
@@ -335,9 +322,10 @@ class _AiPageState extends State<AiPage> {
                       const SizedBox(width: 3),
 
                       Text(
-                        '${recipe.calories} kcal',
+                        '${recipe.calories} ${tr.text('ai_kcal')}',
 
-                        style: const TextStyle(fontSize: 8, color: Colors.grey),
+                        style: const TextStyle(
+                            fontSize: 8, color: Colors.grey),
                       ),
                     ],
                   ),
