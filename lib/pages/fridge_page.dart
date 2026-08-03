@@ -20,33 +20,42 @@ class _FridgePageState extends State<FridgePage> {
 
   final ImagePicker _imagePicker = ImagePicker();
 
-    String _selectedCategory = 'Tất cả';
+    String _selectedCategoryKey = 'all';
 
-  List<String> get categories {
-    final tr = LanguageProvider.t(context);
-    final List<String> result = [tr.text('all')];
-
+  /// Khoá danh mục xuất hiện trong dữ liệu (theo thứ tự thêm vào).
+  List<String> get _categoryKeys {
+    final seen = <String>{};
+    final result = <String>[];
     for (final food in fakeFoods) {
-      if (!result.contains(food.category)) {
-        result.add(food.category);
+      if (seen.add(food.categoryKey)) {
+        result.add(food.categoryKey);
       }
     }
+    return result;
+  }
 
+  /// Nhãn danh mục theo locale hiện tại, kèm 'Tất cả' / 'All' ở đầu.
+  List<({String key, String label})> get categories {
+    final tr = LanguageProvider.t(context);
+    final result = <({String key, String label})>[
+      (key: 'all', label: tr.text('all')),
+    ];
+    for (final key in _categoryKeys) {
+      result.add((key: key, label: tr.text(key)));
+    }
     return result;
   }
 
   List<Food> get filteredFoods {
-    final tr = LanguageProvider.t(context);
-    final allLabel = tr.text('all');
     List<Food> result = List.from(fakeFoods);
 
-        if (_selectedCategory != allLabel) {
+    if (_selectedCategoryKey != 'all') {
       result = result.where((food) {
-        return food.category == _selectedCategory;
+        return food.categoryKey == _selectedCategoryKey;
       }).toList();
     }
 
-        final keyword = _searchController.text.trim().toLowerCase();
+    final keyword = _searchController.text.trim().toLowerCase();
 
     if (keyword.isNotEmpty) {
       result = result.where((food) {
@@ -210,14 +219,14 @@ class _FridgePageState extends State<FridgePage> {
         },
 
         itemBuilder: (context, index) {
-          final category = categories[index];
+          final cat = categories[index];
 
-          final selected = category == _selectedCategory;
+          final selected = cat.key == _selectedCategoryKey;
 
           return GestureDetector(
             onTap: () {
               setState(() {
-                _selectedCategory = category;
+                _selectedCategoryKey = cat.key;
               });
             },
 
@@ -237,7 +246,7 @@ class _FridgePageState extends State<FridgePage> {
               ),
 
               child: Text(
-                category,
+                cat.label,
 
                 style: TextStyle(
                   fontSize: 10,
@@ -334,7 +343,7 @@ class _FridgePageState extends State<FridgePage> {
                 const SizedBox(height: 5),
 
                 Text(
-                  food.category,
+                  tr.text(food.categoryKey),
 
                   style: const TextStyle(
                     color: Color(0xff8A968D),
@@ -735,7 +744,7 @@ class _FridgePageState extends State<FridgePage> {
       text: food?.quantity.toString() ?? '',
     );
 
-    String selectedCategory = food?.category ?? 'Rau củ';
+    String selectedCategoryKey = food?.categoryKey ?? 'category_vegetable';
 
     DateTime selectedExpiryDate =
         food?.expiryDate ?? DateTime.now().add(const Duration(days: 7));
@@ -842,30 +851,30 @@ class _FridgePageState extends State<FridgePage> {
                     const SizedBox(height: 6),
 
                     DropdownButtonFormField<String>(
-                      value: selectedCategory,
+                      value: selectedCategoryKey,
 
                       decoration: _inputDecoration(
                           '', Icons.category_outlined),
 
-                      items: [
-                        tr.text('category_vegetable'),
-                        tr.text('category_meat'),
-                        tr.text('category_drink'),
-                        tr.text('category_fruit'),
-                        tr.text('category_milk'),
-                        tr.text('category_other'),
-                      ].map((category) {
+                      items: const [
+                        'category_vegetable',
+                        'category_meat',
+                        'category_drink',
+                        'category_fruit',
+                        'category_milk',
+                        'category_other',
+                      ].map((key) {
                         return DropdownMenuItem<String>(
-                          value: category,
+                          value: key,
 
-                          child: Text(category),
+                          child: Text(tr.text(key)),
                         );
                       }).toList(),
 
                       onChanged: (value) {
                         if (value != null) {
                           setModalState(() {
-                            selectedCategory = value;
+                            selectedCategoryKey = value;
                           });
                         }
                       },
@@ -1017,7 +1026,7 @@ class _FridgePageState extends State<FridgePage> {
                                     quantityController.text.trim()) ??
                                 0,
 
-                            category: selectedCategory,
+                            selectedCategoryKey: selectedCategoryKey,
 
                             expiryDate: selectedExpiryDate,
 
@@ -1123,7 +1132,7 @@ class _FridgePageState extends State<FridgePage> {
 
     required int quantity,
 
-    required String category,
+    required String selectedCategoryKey,
 
     required DateTime expiryDate,
 
@@ -1154,7 +1163,9 @@ class _FridgePageState extends State<FridgePage> {
         setState(() {
           fakeFoods[duplicateIndex].quantity += quantity;
 
-          fakeFoods[duplicateIndex].category = category;
+          fakeFoods[duplicateIndex].category = selectedCategoryKey;
+
+          fakeFoods[duplicateIndex].categoryKey = selectedCategoryKey;
 
           fakeFoods[duplicateIndex].expiryDate = expiryDate;
 
@@ -1181,7 +1192,9 @@ class _FridgePageState extends State<FridgePage> {
 
         food.quantity = quantity;
 
-        food.category = category;
+        food.category = selectedCategoryKey;
+
+        food.categoryKey = selectedCategoryKey;
 
         food.expiryDate = expiryDate;
 
@@ -1209,7 +1222,9 @@ class _FridgePageState extends State<FridgePage> {
       setState(() {
         fakeFoods[existingIndex].quantity += quantity;
 
-        fakeFoods[existingIndex].category = category;
+        fakeFoods[existingIndex].category = selectedCategoryKey;
+
+        fakeFoods[existingIndex].categoryKey = selectedCategoryKey;
 
         fakeFoods[existingIndex].expiryDate = expiryDate;
 
@@ -1235,7 +1250,9 @@ class _FridgePageState extends State<FridgePage> {
 
       quantity: quantity,
 
-      category: category,
+      category: selectedCategoryKey,
+
+      categoryKey: selectedCategoryKey,
 
       expiryDate: expiryDate,
 
