@@ -222,8 +222,45 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> {
 
         const SizedBox(height: 10),
 
-        // Danh sách nguyên liệu
+        ...widget.recipe.ingredients.map((ingredient) {
+          return _buildIngredientItem(ingredient);
+        }),
       ],
+    );
+  }
+
+  // ============================================================
+  // Ingredients
+  // ============================================================
+  Widget _buildIngredientItem(String ingredient) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 9),
+
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+
+        children: [
+          Container(
+            width: 5,
+            height: 5,
+
+            margin: const EdgeInsets.only(top: 6, right: 8),
+
+            decoration: const BoxDecoration(
+              color: Color(0xff4CAF50),
+              shape: BoxShape.circle,
+            ),
+          ),
+
+          Expanded(
+            child: Text(
+              ingredient,
+
+              style: const TextStyle(fontSize: 11, color: Color(0xff657067)),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
