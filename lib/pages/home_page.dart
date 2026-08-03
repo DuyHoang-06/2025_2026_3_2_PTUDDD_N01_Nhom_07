@@ -84,7 +84,11 @@ class _HomePageState extends State<HomePage> {
 
       case 'đồ uống':
       case 'đồ uống ':
-        return 'assets/imgs/categories/drink.png';
+        return 'assets/imgs/categories/drink.jpg';
+
+      case 'sữa':
+      case 'sữa tươi ':
+        return 'assets/imgs/categories/whitemilk.png';
 
       case 'trái cây':
         return 'assets/imgs/categories/fruit.png';
@@ -108,6 +112,10 @@ class _HomePageState extends State<HomePage> {
       case 'đồ uống':
       case 'đồ uống ':
         return const Color(0xfffff3dd);
+
+      case 'sữa':
+      case 'sữa tươi ':
+        return const Color(0xffE4F4E7);
 
       case 'trái cây':
         return const Color(0xffffe8ed);
