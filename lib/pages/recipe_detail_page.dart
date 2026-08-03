@@ -10,6 +10,9 @@ class RecipeDetailPage extends StatefulWidget {
   State<RecipeDetailPage> createState() => _RecipeDetailPageState();
 }
 
+// ============================================================
+// BUILD
+// ============================================================
 class _RecipeDetailPageState extends State<RecipeDetailPage> {
   @override
   Widget build(BuildContext context) {
@@ -28,7 +31,8 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
 
                   children: [
-                    //Recipe Info
+                    _buildTopImage(),
+
                     const SizedBox(height: 24),
 
                     //_buildIngredients(),
@@ -41,6 +45,85 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  // ============================================================
+  // Top Image
+  // ============================================================
+  Widget _buildTopImage() {
+    return SizedBox(
+      height: 190,
+      width: double.infinity,
+
+      child: Stack(
+        children: [
+          Image.asset(
+            widget.recipe.image,
+
+            width: double.infinity,
+            height: double.infinity,
+
+            fit: BoxFit.cover,
+          ),
+
+          // Nút quay lại
+          Positioned(
+            top: 12,
+            left: 12,
+
+            child: GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+              },
+
+              child: Container(
+                width: 32,
+                height: 32,
+
+                decoration: BoxDecoration(
+                  color: Colors.black.withOpacity(0.35),
+                  shape: BoxShape.circle,
+                ),
+
+                child: const Icon(
+                  Icons.arrow_back_ios_new,
+                  color: Colors.white,
+                  size: 15,
+                ),
+              ),
+            ),
+          ),
+
+          // Nút yêu thích
+          Positioned(
+            top: 12,
+            right: 12,
+
+            child: GestureDetector(
+              onTap: () {
+                // Xử lý favorite recipe sau
+              },
+
+              child: Container(
+                width: 32,
+                height: 32,
+
+                decoration: BoxDecoration(
+                  color: Colors.black.withOpacity(0.35),
+                  shape: BoxShape.circle,
+                ),
+
+                child: const Icon(
+                  Icons.favorite_border,
+                  color: Colors.white,
+                  size: 18,
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
