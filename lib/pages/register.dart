@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/language_provider.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -40,6 +41,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
+    final tr = LanguageProvider.t(context);
     return Scaffold(
       backgroundColor: const Color(0xffF8FBF7),
       body: SafeArea(
@@ -63,22 +65,22 @@ class _RegisterPageState extends State<RegisterPage> {
 
               const SizedBox(height: 25),
 
-              const Text(
-                "Tạo tài khoản",
-                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+              Text(
+                tr.text('register_title'),
+                style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
               ),
 
               const SizedBox(height: 8),
 
-              const Text(
-                "Đăng ký để sử dụng Smart Fridge",
-                style: TextStyle(color: Colors.grey, fontSize: 15),
+              Text(
+                tr.text('register_subtitle'),
+                style: const TextStyle(color: Colors.grey, fontSize: 15),
               ),
               const SizedBox(height: 35),
 
-              const Text(
-                "HỌ VÀ TÊN",
-                style: TextStyle(
+              Text(
+                tr.text('register_name'),
+                style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Colors.grey,
                   fontSize: 12,
@@ -89,14 +91,14 @@ class _RegisterPageState extends State<RegisterPage> {
 
               TextField(
                 controller: nameController,
-                decoration: inputDecoration("Nhập họ và tên"),
+                decoration: inputDecoration(tr.text('register_name_hint')),
               ),
 
               const SizedBox(height: 20),
 
-              const Text(
-                "EMAIL",
-                style: TextStyle(
+              Text(
+                tr.text('login_label_email'),
+                style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Colors.grey,
                   fontSize: 12,
@@ -107,14 +109,14 @@ class _RegisterPageState extends State<RegisterPage> {
 
               TextField(
                 controller: emailController,
-                decoration: inputDecoration("Nhập email"),
+                decoration: inputDecoration(tr.text('register_email_hint')),
               ),
 
               const SizedBox(height: 20),
 
-              const Text(
-                "MẬT KHẨU",
-                style: TextStyle(
+              Text(
+                tr.text('login_label_password'),
+                style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Colors.grey,
                   fontSize: 12,
@@ -127,7 +129,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 controller: passwordController,
                 obscureText: _obscurePassword,
                 decoration: InputDecoration(
-                  hintText: "Nhập mật khẩu",
+                  hintText: tr.text('register_password_hint'),
                   filled: true,
                   fillColor: const Color(0xffF3F7F3),
                   border: OutlineInputBorder(
@@ -151,9 +153,9 @@ class _RegisterPageState extends State<RegisterPage> {
 
               const SizedBox(height: 20),
 
-              const Text(
-                "XÁC NHẬN MẬT KHẨU",
-                style: TextStyle(
+              Text(
+                tr.text('register_confirm_password'),
+                style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Colors.grey,
                   fontSize: 12,
@@ -166,7 +168,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 controller: confirmPasswordController,
                 obscureText: _obscureConfirmPassword,
                 decoration: InputDecoration(
-                  hintText: "Nhập lại mật khẩu",
+                  hintText: tr.text('register_confirm_hint'),
                   filled: true,
                   fillColor: const Color(0xffF3F7F3),
                   border: OutlineInputBorder(
@@ -194,8 +196,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 height: 58,
                 child: ElevatedButton(
                   onPressed: () {
-                    // Đăng ký
-                  },
+                                      },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.green,
                     foregroundColor: Colors.white,
@@ -204,9 +205,9 @@ class _RegisterPageState extends State<RegisterPage> {
                       borderRadius: BorderRadius.circular(16),
                     ),
                   ),
-                  child: const Text(
-                    "Đăng Ký",
-                    style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                  child: Text(
+                    tr.text('register_button'),
+                    style: const TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
                   ),
                 ),
               ),
@@ -218,16 +219,16 @@ class _RegisterPageState extends State<RegisterPage> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      'Đã có tài khoản?',
-                      style: TextStyle(color: Colors.grey),
+                      tr.text('register_have_account'),
+                      style: const TextStyle(color: Colors.grey),
                     ),
                     TextButton(
                       onPressed: () {
                         Navigator.pop(context);
                       },
                       child: Text(
-                        'Đăng nhập',
-                        style: TextStyle(
+                        tr.text('register_login'),
+                        style: const TextStyle(
                           color: Colors.green,
                           fontWeight: FontWeight.bold,
                         ),

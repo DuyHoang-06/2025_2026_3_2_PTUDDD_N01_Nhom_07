@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_smart_fridge/pages/register.dart';
 import '../services/auth_service.dart';
-import 'home_page.dart';
-import 'register.dart';
+import '../services/auth_session.dart';
+import '../widgets/language_provider.dart';
 import 'main_page.dart';
+import 'register.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({super.key});
@@ -21,6 +21,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    final tr = LanguageProvider.t(context);
     return Scaffold(
       backgroundColor: const Color(0xffF7FAF5),
       body: SafeArea(
@@ -31,8 +32,7 @@ class _LoginPageState extends State<LoginPage> {
             children: [
               const SizedBox(height: 30),
 
-              // Logo
-              Container(
+                            Container(
                 height: 60,
                 width: 60,
                 decoration: BoxDecoration(
@@ -44,23 +44,23 @@ class _LoginPageState extends State<LoginPage> {
 
               const SizedBox(height: 28),
 
-              const Text(
-                "Chào mừng trở lại",
-                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+              Text(
+                tr.text('login_welcome'),
+                style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
               ),
 
               const SizedBox(height: 8),
 
-              const Text(
-                "Đăng nhập vào tài khoản Smart Fridge của bạn",
-                style: TextStyle(color: Colors.grey, fontSize: 15),
+              Text(
+                tr.text('login_subtitle'),
+                style: const TextStyle(color: Colors.grey, fontSize: 15),
               ),
 
               const SizedBox(height: 35),
 
-              const Text(
-                "EMAIL",
-                style: TextStyle(
+              Text(
+                tr.text('login_label_email'),
+                style: const TextStyle(
                   fontWeight: FontWeight.w600,
                   color: Colors.grey,
                   fontSize: 12,
@@ -72,7 +72,7 @@ class _LoginPageState extends State<LoginPage> {
               TextField(
                 controller: emailController,
                 decoration: InputDecoration(
-                  hintText: "hoang@gmail.com",
+                  hintText: tr.text('login_email_hint'),
                   filled: true,
                   fillColor: const Color(0xffF3F7F3),
                   border: OutlineInputBorder(
@@ -84,9 +84,9 @@ class _LoginPageState extends State<LoginPage> {
 
               const SizedBox(height: 25),
 
-              const Text(
-                "MẬT KHẨU",
-                style: TextStyle(
+              Text(
+                tr.text('login_label_password'),
+                style: const TextStyle(
                   fontWeight: FontWeight.w600,
                   color: Colors.grey,
                   fontSize: 12,
@@ -99,7 +99,7 @@ class _LoginPageState extends State<LoginPage> {
                 controller: passwordController,
                 obscureText: _obscurePassword,
                 decoration: InputDecoration(
-                  hintText: "••••••••",
+                  hintText: tr.text('login_password_hint'),
                   filled: true,
                   fillColor: const Color(0xffF3F7F3),
                   border: OutlineInputBorder(
@@ -129,9 +129,9 @@ class _LoginPageState extends State<LoginPage> {
                   onPressed: () {
                     print('clicked quên mật khẩu');
                   },
-                  child: const Text(
-                    "Quên mật khẩu?",
-                    style: TextStyle(color: Colors.green),
+                  child: Text(
+                    tr.text('login_forgot'),
+                    style: const TextStyle(color: Colors.green),
                   ),
                 ),
               ),
@@ -150,15 +150,14 @@ class _LoginPageState extends State<LoginPage> {
                       passwordController.text.trim(),
                     );
                     if (user != null) {
+                      AuthSession.instance.login(user);
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(builder: (_) => const MainPage()),
                       );
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Email hoặc mật khẩu không đúng!'),
-                        ),
+                        SnackBar(content: Text(tr.text('login_error_invalid'))),
                       );
                     }
                   },
@@ -170,9 +169,9 @@ class _LoginPageState extends State<LoginPage> {
                       borderRadius: BorderRadius.circular(16),
                     ),
                   ),
-                  child: const Text(
-                    "Đăng Nhập",
-                    style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                  child: Text(
+                    tr.text('login_button'),
+                    style: const TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
                   ),
                 ),
               ),
@@ -183,8 +182,8 @@ class _LoginPageState extends State<LoginPage> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      'Chưa có tài khoản?',
-                      style: TextStyle(color: Colors.grey),
+                      tr.text('login_no_account'),
+                      style: const TextStyle(color: Colors.grey),
                     ),
                     TextButton(
                       onPressed: () {
@@ -194,8 +193,8 @@ class _LoginPageState extends State<LoginPage> {
                         );
                       },
                       child: Text(
-                        'Đăng ký',
-                        style: TextStyle(
+                        tr.text('login_register'),
+                        style: const TextStyle(
                           color: Colors.green,
                           fontWeight: FontWeight.bold,
                         ),

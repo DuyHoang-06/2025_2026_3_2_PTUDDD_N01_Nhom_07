@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 import '../utils/app_colors.dart';
+import '../widgets/language_provider.dart';
 import 'login_page.dart';
 
 class SplashPage extends StatefulWidget {
@@ -65,6 +66,7 @@ class _SplashPageState extends State<SplashPage>
 
   @override
   Widget build(BuildContext context) {
+    final tr = LanguageProvider.t(context);
     return Scaffold(
       backgroundColor: AppColors.primary,
       body: Stack(
@@ -101,9 +103,9 @@ class _SplashPageState extends State<SplashPage>
 
                   const SizedBox(height: 28),
 
-                  const Text(
-                    "Smart Fridge",
-                    style: TextStyle(
+                  Text(
+                    tr.text('app_name'),
+                    style: const TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
                       fontSize: 34,
@@ -112,16 +114,16 @@ class _SplashPageState extends State<SplashPage>
 
                   const SizedBox(height: 10),
 
-                  const Text(
-                    "Quản Lý Thực Phẩm Thông Minh Bằng AI",
-                    style: TextStyle(color: Colors.white70, fontSize: 16),
+                  Text(
+                    tr.text('splash_tagline'),
+                    style: const TextStyle(color: Colors.white70, fontSize: 16),
                   ),
 
                   const SizedBox(height: 80),
 
-                  const Text(
-                    "Nhấn để tiếp tục",
-                    style: TextStyle(color: Colors.white70),
+                  Text(
+                    tr.text('splash_continue'),
+                    style: const TextStyle(color: Colors.white70),
                   ),
                 ],
               ),
