@@ -36,9 +36,10 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> {
                     const SizedBox(height: 24),
 
                     _buildIngredients(),
+
                     const SizedBox(height: 24),
 
-                    //Step of Cooking
+                    _buildSteps(),
                   ],
                 ),
               ),
@@ -230,7 +231,7 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> {
   }
 
   // ============================================================
-  // Ingredients
+  // Ingredient Item
   // ============================================================
   Widget _buildIngredientItem(String ingredient) {
     return Padding(
@@ -261,6 +262,29 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> {
           ),
         ],
       ),
+    );
+  }
+
+  // ============================================================
+  // Steps of Cooking
+  // ============================================================
+  Widget _buildSteps() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+
+      children: [
+        const Text(
+          'Các Bước Thực Hiện',
+
+          style: TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.bold,
+            color: Color(0xff1D3022),
+          ),
+        ),
+
+        // List Steps
+      ],
     );
   }
 }
