@@ -4,13 +4,17 @@ final List<Recipe> fakeRecipes = [
   Recipe(
     id: '1',
     name: 'Cà Chua Xào Trứng',
+    nameVi: 'Cà Chua Xào Trứng',
+    nameEn: 'Tomato Scrambled Eggs',
     image: 'assets/imgs/recipes/ca_chua_xao_trung.jpg',
     rating: 4.8,
     cookingTime: 15,
     calories: 320,
     category: 'Nấu nhanh',
+    categoryKey: 'ai_cat_quick',
 
-    ingredients: [
+    ingredients: const [],
+    ingredientsVi: [
       '300g Cà Chua Bi',
       '3 Quả Trứng Gà',
       '200g Ức Gà',
@@ -18,8 +22,17 @@ final List<Recipe> fakeRecipes = [
       '1 Muỗng canh Dầu Mè',
       'Muối & Tiêu theo khẩu vị',
     ],
+    ingredientsEn: [
+      '300g Cherry Tomatoes',
+      '3 Eggs',
+      '200g Chicken Breast',
+      '2 Garlic Cloves',
+      '1 tbsp Sesame Oil',
+      'Salt & Pepper to taste',
+    ],
 
-    steps: [
+    steps: const [],
+    stepsVi: [
       'Đun nóng dầu mè trong chảo lớn vừa.',
       'Thêm tỏi băm, xào thơm khoảng 30 giây.',
       'Cho ức gà vào xào đến khi vàng đẹp.',
@@ -27,18 +40,30 @@ final List<Recipe> fakeRecipes = [
       'Tạo hốc nhỏ, đập trứng vào khuấy nhẹ.',
       'Nêm muối tiêu, đun lửa nhỏ cho đến khi nóng.',
     ],
+    stepsEn: [
+      'Heat sesame oil in a medium pan.',
+      'Add minced garlic and stir-fry for about 30 seconds.',
+      'Add chicken breast and stir-fry until golden.',
+      'Add tomatoes and stir evenly for 2 minutes.',
+      'Make a small well, crack the eggs in and stir gently.',
+      'Season with salt and pepper, simmer on low until warm.',
+    ],
   ),
 
   Recipe(
     id: '2',
     name: 'Cơm Gà Rau Củ',
+    nameVi: 'Cơm Gà Rau Củ',
+    nameEn: 'Chicken Rice with Vegetables',
     image: 'assets/imgs/recipes/ca_chua_xao_trung.jpg',
     rating: 4.6,
     cookingTime: 30,
     calories: 480,
     category: 'Lành mạnh',
+    categoryKey: 'ai_cat_healthy',
 
-    ingredients: [
+    ingredients: const [],
+    ingredientsVi: [
       '200g Ức Gà',
       '150g Cơm',
       '100g Cà Rốt',
@@ -46,8 +71,17 @@ final List<Recipe> fakeRecipes = [
       '1 Muỗng Dầu Ô Liu',
       'Muối & Tiêu',
     ],
+    ingredientsEn: [
+      '200g Chicken Breast',
+      '150g Rice',
+      '100g Carrot',
+      '100g Broccoli',
+      '1 tbsp Olive Oil',
+      'Salt & Pepper',
+    ],
 
-    steps: [
+    steps: const [],
+    stepsVi: [
       'Rửa sạch và sơ chế rau củ.',
       'Luộc hoặc hấp rau củ.',
       'Áp chảo ức gà.',
@@ -55,18 +89,30 @@ final List<Recipe> fakeRecipes = [
       'Thêm thịt gà và rau củ.',
       'Nêm gia vị vừa ăn.',
     ],
+    stepsEn: [
+      'Wash and prep the vegetables.',
+      'Boil or steam the vegetables.',
+      'Pan-sear the chicken breast.',
+      'Plate the rice.',
+      'Add the chicken and vegetables on top.',
+      'Season to taste.',
+    ],
   ),
 
   Recipe(
     id: '3',
     name: 'Cơm Trộn Hàn Quốc',
+    nameVi: 'Cơm Trộn Hàn Quốc',
+    nameEn: 'Korean Mixed Rice',
     image: 'assets/imgs/recipes/ca_chua_xao_trung.jpg',
     rating: 4.9,
     cookingTime: 45,
     calories: 560,
     category: 'Món Hàn',
+    categoryKey: 'ai_cat_korean',
 
-    ingredients: [
+    ingredients: const [],
+    ingredientsVi: [
       '200g Cơm',
       '100g Thịt Bò',
       '1 Củ Cà Rốt',
@@ -74,8 +120,17 @@ final List<Recipe> fakeRecipes = [
       '1 Quả Trứng',
       'Sốt Gochujang',
     ],
+    ingredientsEn: [
+      '200g Rice',
+      '100g Beef',
+      '1 Carrot',
+      'Leafy Greens',
+      '1 Egg',
+      'Gochujang Sauce',
+    ],
 
-    steps: [
+    steps: const [],
+    stepsVi: [
       'Sơ chế rau củ.',
       'Xào thịt bò với gia vị.',
       'Chiên trứng.',
@@ -83,26 +138,46 @@ final List<Recipe> fakeRecipes = [
       'Xếp các nguyên liệu lên trên.',
       'Thêm sốt Gochujang và thưởng thức.',
     ],
+    stepsEn: [
+      'Prep the vegetables.',
+      'Stir-fry the beef with seasonings.',
+      'Fry an egg.',
+      'Put rice into a bowl.',
+      'Arrange the toppings on top.',
+      'Add Gochujang sauce and enjoy.',
+    ],
   ),
 
   Recipe(
     id: '4',
     name: 'Canh Kim Chi',
+    nameVi: 'Canh Kim Chi',
+    nameEn: 'Kimchi Soup',
     image: 'assets/imgs/recipes/ca_chua_xao_trung.jpg',
     rating: 4.7,
     cookingTime: 20,
     calories: 180,
     category: 'Món Hàn',
+    categoryKey: 'ai_cat_korean',
 
-    ingredients: [
+    ingredients: const [],
+    ingredientsVi: [
       '200g Kim Chi',
       '100g Thịt Heo',
       '100g Đậu Phụ',
       'Hành Lá',
       'Ớt Bột Hàn Quốc',
     ],
+    ingredientsEn: [
+      '200g Kimchi',
+      '100g Pork',
+      '100g Tofu',
+      'Green Onion',
+      'Korean Chili Powder',
+    ],
 
-    steps: [
+    steps: const [],
+    stepsVi: [
       'Xào kim chi và thịt heo.',
       'Thêm nước vào nồi.',
       'Đun sôi.',
@@ -110,32 +185,60 @@ final List<Recipe> fakeRecipes = [
       'Nêm gia vị.',
       'Thêm hành lá rồi tắt bếp.',
     ],
+    stepsEn: [
+      'Stir-fry kimchi and pork.',
+      'Add water to the pot.',
+      'Bring to a boil.',
+      'Add tofu.',
+      'Season to taste.',
+      'Add green onion and turn off the heat.',
+    ],
   ),
 
   Recipe(
     id: '5',
     name: 'Bánh Sinh Tố Xanh',
+    nameVi: 'Bánh Sinh Tố Xanh',
+    nameEn: 'Green Smoothie Bowl',
     image: 'assets/imgs/recipes/ca_chua_xao_trung.jpg',
     rating: 4.5,
     cookingTime: 10,
     calories: 280,
     category: 'Lành mạnh',
+    categoryKey: 'ai_cat_healthy',
 
-    ingredients: [
+    ingredients: const [],
+    ingredientsVi: [
       '1 Quả Chuối',
       '100g Rau Cải Bó Xôi',
       '150ml Sữa',
       '1 Muỗng Mật Ong',
       'Đá Viên',
     ],
+    ingredientsEn: [
+      '1 Banana',
+      '100g Spinach',
+      '150ml Milk',
+      '1 tbsp Honey',
+      'Ice Cubes',
+    ],
 
-    steps: [
+    steps: const [],
+    stepsVi: [
       'Rửa sạch rau cải.',
       'Cắt chuối thành từng miếng.',
       'Cho tất cả nguyên liệu vào máy xay.',
       'Xay đến khi mịn.',
       'Đổ ra ly.',
       'Thưởng thức ngay.',
+    ],
+    stepsEn: [
+      'Wash the spinach thoroughly.',
+      'Cut the banana into pieces.',
+      'Put all ingredients into a blender.',
+      'Blend until smooth.',
+      'Pour into a glass.',
+      'Enjoy right away.',
     ],
   ),
 ];

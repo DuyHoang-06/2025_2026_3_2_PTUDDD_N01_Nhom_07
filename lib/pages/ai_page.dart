@@ -12,23 +12,19 @@ class AiPage extends StatefulWidget {
 }
 
 class _AiPageState extends State<AiPage> {
-      static const _categoryKeys = ['all', 'ai_cat_quick', 'ai_cat_healthy', 'ai_cat_korean'];
+  static const _categoryKeys = ['all', 'ai_cat_quick', 'ai_cat_healthy', 'ai_cat_korean'];
 
+  // Lọc theo khoá dịch thay vì nhãn đã dịch,
+  // để kết quả không phụ thuộc locale hiện tại.
   String _selectedCategoryKey = 'all';
 
-        List<Recipe> get _filteredRecipes {
-    final tr = LanguageProvider.t(context);
+  List<Recipe> get _filteredRecipes {
     if (_selectedCategoryKey == 'all') {
       return fakeRecipes;
     }
-
-        final Map<String, String> categoryMap = {
-      'ai_cat_quick': tr.text('ai_cat_quick'),       'ai_cat_healthy': tr.text('ai_cat_healthy'),       'ai_cat_korean': tr.text('ai_cat_korean'),     };
-
-    final selectedLabel = categoryMap[_selectedCategoryKey];
-    return fakeRecipes.where((recipe) {
-      return recipe.category == selectedLabel;
-    }).toList();
+    return fakeRecipes
+        .where((recipe) => recipe.categoryKey == _selectedCategoryKey)
+        .toList();
   }
 
         @override
@@ -280,7 +276,7 @@ class _AiPageState extends State<AiPage> {
 
                 children: [
                   Text(
-                    recipe.name,
+                    tr.locale == 'en' ? recipe.nameEn : recipe.nameVi,
 
                     maxLines: 1,
 
