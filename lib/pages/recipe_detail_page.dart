@@ -22,7 +22,7 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> {
       body: SafeArea(
         child: Column(
           children: [
-            //Top Image
+            _buildTopImage(),
             Expanded(
               child: SingleChildScrollView(
                 padding: const EdgeInsets.fromLTRB(16, 16, 16, 30),
@@ -31,7 +31,7 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
 
                   children: [
-                    _buildTopImage(),
+                    _buildRecipeInfo(),
 
                     const SizedBox(height: 24),
 
@@ -125,6 +125,35 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> {
           ),
         ],
       ),
+    );
+  }
+
+  // ============================================================
+  // Recipe Info
+  // ============================================================
+  Widget _buildRecipeInfo() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+
+      children: [
+        Text(
+          widget.recipe.name,
+
+          style: const TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: Color(0xff1D3022),
+          ),
+        ),
+
+        const SizedBox(height: 10),
+
+        Row(
+          children: [
+            // widget các infor items
+          ],
+        ),
+      ],
     );
   }
 }
