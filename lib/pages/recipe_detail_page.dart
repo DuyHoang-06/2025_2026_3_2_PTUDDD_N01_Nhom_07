@@ -283,8 +283,70 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> {
           ),
         ),
 
-        // List Steps
+        const SizedBox(height: 12),
+
+        ...List.generate(widget.recipe.steps.length, (index) {
+          return _buildStepItem(
+            stepNumber: index + 1,
+            content: widget.recipe.steps[index],
+          );
+        }),
       ],
+    );
+  }
+
+  // ============================================================
+  // Step Item
+  // ============================================================
+  Widget _buildStepItem({required int stepNumber, required String content}) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+
+        children: [
+          Container(
+            width: 22,
+            height: 22,
+
+            decoration: const BoxDecoration(
+              color: Color(0xff4CAF50),
+              shape: BoxShape.circle,
+            ),
+
+            alignment: Alignment.center,
+
+            child: Text(
+              '$stepNumber',
+
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 10,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+
+          const SizedBox(width: 10),
+
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(top: 3),
+
+              child: Text(
+                content,
+
+                style: const TextStyle(
+                  fontSize: 11,
+                  height: 1.4,
+                  color: Color(0xff657067),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

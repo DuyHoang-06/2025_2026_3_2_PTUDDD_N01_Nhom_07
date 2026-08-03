@@ -29,6 +29,15 @@ final List<Food> fakeFoods = [
   ),
 
   Food(
+    id: '3',
+    name: 'Coca Cola',
+    quantity: 2,
+    category: 'Đồ uống',
+    expiryDate: DateTime(2026, 8, 5),
+    image: 'assets/imgs/foods/coca_cola.png',
+  ),
+
+  Food(
     id: '4',
     name: 'Táo',
     quantity: 5,
