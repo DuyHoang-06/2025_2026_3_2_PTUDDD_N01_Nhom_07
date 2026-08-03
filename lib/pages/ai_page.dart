@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../data/fake_recipe.dart';
+import '../models/recipe.dart';
 
 class AiPage extends StatefulWidget {
   const AiPage({super.key});
@@ -16,6 +18,19 @@ class _AiPageState extends State<AiPage> {
     'Lành mạnh',
     'Món Hàn',
   ];
+
+  // ============================================================
+  // Tạp getter cho recipes đã lọc theo danh mục
+  // ============================================================
+  List<Recipe> get _filteredRecipes {
+    if (_selectedCategory == 'Tất cả') {
+      return fakeRecipes;
+    }
+
+    return fakeRecipes.where((recipe) {
+      return recipe.category == _selectedCategory;
+    }).toList();
+  }
 
   // ============================================================
   // BUILD
