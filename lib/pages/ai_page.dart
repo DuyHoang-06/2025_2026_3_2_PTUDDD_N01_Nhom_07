@@ -169,6 +169,9 @@ class _AiPageState extends State<AiPage> {
     );
   }
 
+  // ============================================================
+  // RECIPE GRID
+  // ============================================================
   Widget _buildRecipeGrid() {
     final recipes = _filteredRecipes;
 
@@ -190,8 +193,154 @@ class _AiPageState extends State<AiPage> {
       itemBuilder: (context, index) {
         final recipe = recipes[index];
 
-        //return Recipe Card
+        return _buildRecipeCard(recipe);
       },
+    );
+  }
+
+  // ============================================================
+  // RECIPE CARD
+  // ============================================================
+  Widget _buildRecipeCard(Recipe recipe) {
+    return GestureDetector(
+      onTap: () {
+        // push đến recipe detail page
+      },
+
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+
+          borderRadius: BorderRadius.circular(14),
+
+          border: Border.all(color: const Color(0xffE5EAE6)),
+        ),
+
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+
+          children: [
+            Expanded(
+              child: Stack(
+                children: [
+                  ClipRRect(
+                    borderRadius: const BorderRadius.vertical(
+                      top: Radius.circular(14),
+                    ),
+
+                    child: Image.asset(
+                      recipe.image,
+
+                      width: double.infinity,
+
+                      height: double.infinity,
+
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+
+                  Positioned(
+                    top: 6,
+                    right: 6,
+
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 5,
+                        vertical: 3,
+                      ),
+
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+
+                      child: Row(
+                        children: [
+                          const Icon(
+                            Icons.star,
+                            size: 10,
+                            color: Colors.orange,
+                          ),
+
+                          const SizedBox(width: 2),
+
+                          Text(
+                            recipe.rating.toString(),
+
+                            style: const TextStyle(
+                              fontSize: 8,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            Padding(
+              padding: const EdgeInsets.all(8),
+
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+
+                children: [
+                  Text(
+                    recipe.name,
+
+                    maxLines: 1,
+
+                    overflow: TextOverflow.ellipsis,
+
+                    style: const TextStyle(
+                      fontSize: 10,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+
+                  const SizedBox(height: 5),
+
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.access_time,
+                        size: 10,
+                        color: Colors.grey,
+                      ),
+
+                      const SizedBox(width: 3),
+
+                      Text(
+                        '${recipe.cookingTime} phút',
+
+                        style: const TextStyle(fontSize: 8, color: Colors.grey),
+                      ),
+
+                      const SizedBox(width: 8),
+
+                      const Icon(
+                        Icons.local_fire_department,
+                        size: 10,
+                        color: Colors.grey,
+                      ),
+
+                      const SizedBox(width: 3),
+
+                      Text(
+                        '${recipe.calories} kcal',
+
+                        style: const TextStyle(fontSize: 8, color: Colors.grey),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
