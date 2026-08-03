@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../data/fake_recipe.dart';
 import '../models/recipe.dart';
+import 'recipe_detail_page.dart';
 
 class AiPage extends StatefulWidget {
   const AiPage({super.key});
@@ -204,7 +205,12 @@ class _AiPageState extends State<AiPage> {
   Widget _buildRecipeCard(Recipe recipe) {
     return GestureDetector(
       onTap: () {
-        // push đến recipe detail page
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => RecipeDetailPage(recipe: recipe),
+          ),
+        );
       },
 
       child: Container(
