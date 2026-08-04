@@ -47,6 +47,7 @@ class _FridgePageState extends State<FridgePage> {
   }
 
   List<Food> get filteredFoods {
+    final tr = LanguageProvider.t(context);
     List<Food> result = List.from(fakeFoods);
 
     if (_selectedCategoryKey != 'all') {
@@ -59,7 +60,7 @@ class _FridgePageState extends State<FridgePage> {
 
     if (keyword.isNotEmpty) {
       result = result.where((food) {
-        return food.name.toLowerCase().contains(keyword);
+        return tr.text(food.nameKey).toLowerCase().contains(keyword);
       }).toList();
     }
 
@@ -327,7 +328,7 @@ class _FridgePageState extends State<FridgePage> {
 
               children: [
                 Text(
-                  food.name,
+                  tr.text(food.nameKey),
 
                   maxLines: 1,
 
@@ -738,7 +739,9 @@ class _FridgePageState extends State<FridgePage> {
     final tr = LanguageProvider.t(context);
     final bool isEditing = food != null;
 
-    final nameController = TextEditingController(text: food?.name ?? '');
+    final nameController = TextEditingController(
+      text: food != null ? tr.text(food.nameKey) : '',
+    );
 
     final quantityController = TextEditingController(
       text: food?.quantity.toString() ?? '',
@@ -1033,6 +1036,8 @@ class _FridgePageState extends State<FridgePage> {
                             imageBytes: selectedImageBytes,
 
                             assetImage: selectedAssetImage,
+
+                            nameKey: isEditing ? food.nameKey : null,
                           );
                         },
 
@@ -1139,6 +1144,9 @@ class _FridgePageState extends State<FridgePage> {
     required Uint8List? imageBytes,
 
     required String? assetImage,
+
+    /// Khoá dịch cho tên. Null khi user thêm món tuỳ ý (sẽ tự sinh).
+    String? nameKey,
   }) {
     final tr = LanguageProvider.t(context);
         if (name.isEmpty) {
@@ -1153,10 +1161,9 @@ class _FridgePageState extends State<FridgePage> {
       return;
     }
 
-    if (isEditing && food != null) {
-                  final duplicateIndex = fakeFoods.indexWhere((item) {
-        return item.id != food.id &&
-            item.name.trim().toLowerCase() == name.trim().toLowerCase();
+if (isEditing && food != null) {
+      final duplicateIndex = fakeFoods.indexWhere((item) {
+        return item.id != food.id && item.nameKey == food.nameKey;
       });
 
       if (duplicateIndex != -1) {
@@ -1190,6 +1197,9 @@ class _FridgePageState extends State<FridgePage> {
       setState(() {
         food.name = name;
 
+        // Giữ nguyên nameKey khi sửa
+        food.nameKey = food.nameKey;
+
         food.quantity = quantity;
 
         food.category = selectedCategoryKey;
@@ -1215,6 +1225,13 @@ class _FridgePageState extends State<FridgePage> {
     }
 
     final existingIndex = fakeFoods.indexWhere((item) {
+      // Ưu tiên: so sánh theo nameKey (cùng món định nghĩa sẵn).
+      // Fallback: so sánh chuỗi đã dịch hiện tại (cho user thêm tay).
+      if (item.nameKey.isNotEmpty) {
+        // So sánh nameKey để phát hiện trùng món định nghĩa sẵn.
+        return item.nameKey == nameKey ||
+            item.name.trim().toLowerCase() == name.trim().toLowerCase();
+      }
       return item.name.trim().toLowerCase() == name.trim().toLowerCase();
     });
 
@@ -1247,6 +1264,8 @@ class _FridgePageState extends State<FridgePage> {
       id: DateTime.now().millisecondsSinceEpoch.toString(),
 
       name: name,
+
+      nameKey: nameKey ?? '',
 
       quantity: quantity,
 
@@ -1289,7 +1308,7 @@ class _FridgePageState extends State<FridgePage> {
           ),
 
           content: Text(
-            '${tr.text('delete_message')} "${food.name}"?',
+            '${tr.text('delete_message')} "${tr.text(food.nameKey)}"?',
 
             style: const TextStyle(fontSize: 12, color: Color(0xff68756C)),
           ),
@@ -1317,7 +1336,7 @@ class _FridgePageState extends State<FridgePage> {
 
                 Navigator.pop(context);
 
-                _showMessage('${tr.text('msg_deleted')} ${food.name}');
+                _showMessage('${tr.text('msg_deleted')} ${tr.text(food.nameKey)}');
               },
 
               child: Text(
