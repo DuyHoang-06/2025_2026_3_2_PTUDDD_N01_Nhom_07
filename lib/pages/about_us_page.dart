@@ -345,9 +345,61 @@ class AboutUsPage extends StatelessWidget {
         const SizedBox(height: 12),
 
         Row(
-          //hiển thị các social button
+          mainAxisAlignment: MainAxisAlignment.center,
+
+          children: [
+            _buildSocialButton(
+              icon: Icons.facebook,
+              onTap: () {
+                print('Facebook');
+              },
+            ),
+
+            const SizedBox(width: 12),
+
+            _buildSocialButton(
+              icon: Icons.camera_alt_outlined,
+              onTap: () {
+                print('Instagram');
+              },
+            ),
+
+            const SizedBox(width: 12),
+
+            _buildSocialButton(
+              icon: Icons.language,
+              onTap: () {
+                print('Website');
+              },
+            ),
+          ],
         ),
       ],
+    );
+  }
+
+  // ============================================
+  // SOCIAL BUTTON
+  // ============================================
+
+  Widget _buildSocialButton({
+    required IconData icon,
+    required VoidCallback onTap,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+
+      child: Container(
+        width: 42,
+        height: 42,
+
+        decoration: BoxDecoration(
+          color: const Color(0xffEAF6EC),
+          shape: BoxShape.circle,
+        ),
+
+        child: Icon(icon, color: const Color(0xff4CAF50), size: 20),
+      ),
     );
   }
 }
