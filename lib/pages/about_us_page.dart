@@ -52,6 +52,10 @@ class AboutUsPage extends StatelessWidget {
 
             _buildContactSection(),
 
+            const SizedBox(height: 30),
+
+            _buildSocialSection(),
+
             const Text(
               'Smart Fridge',
               style: TextStyle(fontSize: 12, color: Colors.grey),
@@ -319,6 +323,31 @@ class AboutUsPage extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  // ============================================
+  // SOCIAL
+  // ============================================
+
+  Widget _buildSocialSection() {
+    return Column(
+      children: [
+        const Text(
+          'Follow Us',
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.bold,
+            color: Color(0xff1D3022),
+          ),
+        ),
+
+        const SizedBox(height: 12),
+
+        Row(
+          //hiển thị các social button
+        ),
+      ],
     );
   }
 }
