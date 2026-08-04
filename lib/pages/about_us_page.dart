@@ -50,6 +50,8 @@ class AboutUsPage extends StatelessWidget {
 
             const SizedBox(height: 30),
 
+            _buildContactSection(),
+
             const Text(
               'Smart Fridge',
               style: TextStyle(fontSize: 12, color: Colors.grey),
@@ -118,6 +120,40 @@ class AboutUsPage extends StatelessWidget {
           textAlign: TextAlign.center,
           style: TextStyle(fontSize: 12, height: 1.5, color: Color(0xff657067)),
         ),
+      ],
+    );
+  }
+
+  // ============================================
+  // DEVELOPMENT TEAM
+  // ============================================
+
+  Widget _buildContactSection() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          'Development Team',
+          style: TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.bold,
+            color: Color(0xff1D3022),
+          ),
+        ),
+
+        const SizedBox(height: 5),
+
+        const Text(
+          'Meet the people behind Smart Fridge',
+          style: TextStyle(fontSize: 11, color: Colors.grey),
+        ),
+
+        const SizedBox(height: 14),
+
+        // tạo model contact
+        const SizedBox(height: 12),
+
+        //tạo model contact
       ],
     );
   }
