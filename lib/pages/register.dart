@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_smart_fridge/pages/home_page.dart';
 import '../widgets/language_provider.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -67,7 +68,10 @@ class _RegisterPageState extends State<RegisterPage> {
 
               Text(
                 tr.text('register_title'),
-                style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                style: const TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
 
               const SizedBox(height: 8),
@@ -196,7 +200,8 @@ class _RegisterPageState extends State<RegisterPage> {
                 height: 58,
                 child: ElevatedButton(
                   onPressed: () {
-                                      },
+                    Navigator.pop(context);
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.green,
                     foregroundColor: Colors.white,
@@ -207,7 +212,10 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                   child: Text(
                     tr.text('register_button'),
-                    style: const TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                    style: const TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),
