@@ -4,6 +4,7 @@ import '../models/user.dart';
 import '../services/auth_session.dart';
 import '../widgets/language_provider.dart';
 import 'login_page.dart';
+import 'about_us_page.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -38,6 +39,7 @@ class ProfilePage extends StatelessWidget {
                         const SizedBox(height: 16),
                         _buildDangerSection(context, tr),
                         const SizedBox(height: 24),
+                        _buildFooter(context),
                       ]),
                     ),
                   ),
@@ -216,10 +218,7 @@ class ProfilePage extends StatelessWidget {
             const SizedBox(height: 8),
             Text(
               tr.text('profile_delete_warning'),
-              style: const TextStyle(
-                color: Color(0xffE53935),
-                fontSize: 12,
-              ),
+              style: const TextStyle(color: Color(0xffE53935), fontSize: 12),
             ),
           ],
         ),
@@ -387,8 +386,66 @@ class ProfilePage extends StatelessWidget {
   }
 
   void _showComingSoon(BuildContext context, AppTranslations tr) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(tr.text('profile_coming_soon'))),
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text(tr.text('profile_coming_soon'))));
+  }
+  // ============================================
+  // FOOTER
+  // ============================================
+
+  Widget _buildFooter(BuildContext context) {
+    return Column(
+      children: [
+        const Divider(color: Color(0xffE8EEE9)),
+
+        const SizedBox(height: 15),
+
+        const Text(
+          'Smart Fridge',
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.bold,
+            color: Color(0xff4CAF50),
+          ),
+        ),
+
+        const SizedBox(height: 6),
+
+        const Text(
+          'Manage your smart fridge',
+          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: 10, color: Colors.grey),
+        ),
+
+        const SizedBox(height: 15),
+
+        GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const AboutUsPage()),
+            );
+          },
+
+          child: const Text(
+            'Contact Us',
+            style: TextStyle(
+              fontSize: 12,
+              color: Color(0xff4CAF50),
+              fontWeight: FontWeight.bold,
+              decoration: TextDecoration.underline,
+            ),
+          ),
+        ),
+
+        const SizedBox(height: 10),
+
+        const Text(
+          '© 2026 Smart Fridge',
+          style: TextStyle(fontSize: 9, color: Colors.grey),
+        ),
+      ],
     );
   }
 }
@@ -441,10 +498,7 @@ class _ProfileHeader extends StatelessWidget {
                 const SizedBox(height: 4),
                 Text(
                   user.email,
-                  style: const TextStyle(
-                    color: Colors.white70,
-                    fontSize: 13,
-                  ),
+                  style: const TextStyle(color: Colors.white70, fontSize: 13),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -452,10 +506,7 @@ class _ProfileHeader extends StatelessWidget {
                   const SizedBox(height: 2),
                   Text(
                     user.phone!,
-                    style: const TextStyle(
-                      color: Colors.white70,
-                      fontSize: 13,
-                    ),
+                    style: const TextStyle(color: Colors.white70, fontSize: 13),
                   ),
                 ],
               ],
@@ -662,10 +713,7 @@ class _NotLoggedInState extends StatelessWidget {
             const SizedBox(height: 16),
             Text(
               message,
-              style: const TextStyle(
-                fontSize: 16,
-                color: Color(0xff657067),
-              ),
+              style: const TextStyle(fontSize: 16, color: Color(0xff657067)),
               textAlign: TextAlign.center,
             ),
           ],

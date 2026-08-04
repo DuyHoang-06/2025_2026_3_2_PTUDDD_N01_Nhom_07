@@ -6,7 +6,7 @@ class AppTranslations {
   AppTranslations(this.locale);
 
   static const Map<String, Map<String, String>> _values = {
-                'app_name': {'vi': 'Smart Fridge', 'en': 'Smart Fridge'},
+    'app_name': {'vi': 'Smart Fridge', 'en': 'Smart Fridge'},
     'cancel': {'vi': 'Hủy', 'en': 'Cancel'},
     'delete': {'vi': 'Xóa', 'en': 'Delete'},
     'edit': {'vi': 'Sửa', 'en': 'Edit'},
@@ -15,43 +15,52 @@ class AppTranslations {
     'other': {'vi': 'Khác', 'en': 'Other'},
     'items_count': {'vi': 'món', 'en': 'items'},
 
-                'splash_tagline': {
+    'splash_tagline': {
       'vi': 'Quản Lý Thực Phẩm Thông Minh Bằng AI',
       'en': 'Smart Food Management Powered by AI',
     },
     'splash_continue': {'vi': 'Nhấn để tiếp tục', 'en': 'Tap to continue'},
 
-                'login_welcome': {'vi': 'Chào mừng trở lại', 'en': 'Welcome back'},
+    'login_welcome': {'vi': 'Chào mừng trở lại', 'en': 'Welcome back'},
     'login_subtitle': {
       'vi': 'Đăng nhập vào tài khoản Smart Fridge của bạn',
       'en': 'Sign in to your Smart Fridge account',
     },
-    'login_email_hint': {
-      'vi': 'hoang@gmail.com',
-      'en': 'name@example.com',
-    },
+    'login_email_hint': {'vi': 'hoang@gmail.com', 'en': 'name@example.com'},
     'login_password_hint': {'vi': '••••••••', 'en': '••••••••'},
     'login_label_email': {'vi': 'EMAIL', 'en': 'EMAIL'},
     'login_label_password': {'vi': 'MẬT KHẨU', 'en': 'PASSWORD'},
     'login_forgot': {'vi': 'Quên mật khẩu?', 'en': 'Forgot password?'},
     'login_button': {'vi': 'Đăng Nhập', 'en': 'Sign In'},
-    'login_no_account': {'vi': 'Chưa có tài khoản?', 'en': "Don't have an account?"},
+    'login_no_account': {
+      'vi': 'Chưa có tài khoản?',
+      'en': "Don't have an account?",
+    },
     'login_register': {'vi': 'Đăng ký', 'en': 'Sign up'},
     'login_error_invalid': {
       'vi': 'Email hoặc mật khẩu không đúng!',
       'en': 'Invalid email or password!',
     },
 
-                'register_title': {'vi': 'Tạo tài khoản', 'en': 'Create account'},
+    'register_title': {'vi': 'Tạo tài khoản', 'en': 'Create account'},
     'register_subtitle': {
       'vi': 'Đăng ký để sử dụng Smart Fridge',
       'en': 'Sign up to start using Smart Fridge',
     },
     'register_name': {'vi': 'HỌ VÀ TÊN', 'en': 'FULL NAME'},
-    'register_name_hint': {'vi': 'Nhập họ và tên', 'en': 'Enter your full name'},
+    'register_name_hint': {
+      'vi': 'Nhập họ và tên',
+      'en': 'Enter your full name',
+    },
     'register_email_hint': {'vi': 'Nhập email', 'en': 'Enter your email'},
-    'register_password_hint': {'vi': 'Nhập mật khẩu', 'en': 'Enter your password'},
-    'register_confirm_password': {'vi': 'XÁC NHẬN MẬT KHẨU', 'en': 'CONFIRM PASSWORD'},
+    'register_password_hint': {
+      'vi': 'Nhập mật khẩu',
+      'en': 'Enter your password',
+    },
+    'register_confirm_password': {
+      'vi': 'XÁC NHẬN MẬT KHẨU',
+      'en': 'CONFIRM PASSWORD',
+    },
     'register_confirm_hint': {
       'vi': 'Nhập lại mật khẩu',
       'en': 'Re-enter your password',
@@ -63,7 +72,7 @@ class AppTranslations {
     },
     'register_login': {'vi': 'Đăng nhập', 'en': 'Sign in'},
 
-                'home_greeting': {'vi': 'TỦ LẠNH CỦA TÔI', 'en': 'MY FRIDGE'},
+    'home_greeting': {'vi': 'TỦ LẠNH CỦA TÔI', 'en': 'MY FRIDGE'},
     'home_user_name': {'vi': 'Duy Hoàng', 'en': 'Duy Hoang'},
     'home_total': {'vi': 'Tổng món', 'en': 'Total'},
     'home_expiring': {'vi': 'Sắp hết hạn', 'en': 'Expiring'},
@@ -77,33 +86,33 @@ class AppTranslations {
     'home_ai_today': {'vi': 'Gợi Ý AI Hôm Nay', 'en': "Today's AI Suggestion"},
     'home_ai_badge': {'vi': 'AI Gợi Ý', 'en': 'AI Pick'},
     'home_ai_more': {'vi': 'Thêm', 'en': 'More'},
-    'home_suggestion_with': {
-      'vi': 'Món ăn với',
-      'en': 'Recipe with',
-    },
+    'home_suggestion_with': {'vi': 'Món ăn với', 'en': 'Recipe with'},
     'home_suggestion_empty': {
       'vi': 'Chưa có gợi ý món ăn',
       'en': 'No recipe suggestion yet',
     },
 
-        'category_vegetable': {'vi': 'Rau củ', 'en': 'Vegetables'},
+    'category_vegetable': {'vi': 'Rau củ', 'en': 'Vegetables'},
     'category_meat': {'vi': 'Thịt & Cá', 'en': 'Meat & Fish'},
     'category_drink': {'vi': 'Đồ uống', 'en': 'Drinks'},
     'category_fruit': {'vi': 'Trái cây', 'en': 'Fruits'},
     'category_milk': {'vi': 'Sữa', 'en': 'Dairy'},
     'category_other': {'vi': 'Khác', 'en': 'Other'},
 
-                'tab_home': {'vi': 'Trang chủ', 'en': 'Home'},
+    'tab_home': {'vi': 'Trang chủ', 'en': 'Home'},
     'tab_fridge': {'vi': 'Tủ lạnh', 'en': 'Fridge'},
     'tab_ai': {'vi': 'AI', 'en': 'AI'},
     'tab_profile': {'vi': 'Cá nhân', 'en': 'Profile'},
 
-                'fridge_title': {'vi': 'Tủ lạnh của tôi', 'en': 'My Fridge'},
+    'fridge_title': {'vi': 'Tủ lạnh của tôi', 'en': 'My Fridge'},
     'fridge_subtitle': {
       'vi': 'Quản lý thực phẩm của bạn',
       'en': 'Manage your food items',
     },
-    'fridge_search_hint': {'vi': 'Tìm kiếm thực phẩm...', 'en': 'Search food...'},
+    'fridge_search_hint': {
+      'vi': 'Tìm kiếm thực phẩm...',
+      'en': 'Search food...',
+    },
     'fridge_quantity': {'vi': 'Số lượng', 'en': 'Quantity'},
     'fridge_empty_title': {
       'vi': 'Không tìm thấy thực phẩm',
@@ -114,16 +123,16 @@ class AppTranslations {
       'en': 'Try a different keyword',
     },
 
-        'status_expired': {'vi': 'Đã hết hạn', 'en': 'Expired'},
+    'status_expired': {'vi': 'Đã hết hạn', 'en': 'Expired'},
     'status_expiring': {'vi': 'Sắp hết hạn', 'en': 'Expiring soon'},
     'status_fresh': {'vi': 'Còn hạn', 'en': 'Fresh'},
 
-        'picker_title': {'vi': 'Chọn ảnh thực phẩm', 'en': 'Pick food image'},
+    'picker_title': {'vi': 'Chọn ảnh thực phẩm', 'en': 'Pick food image'},
     'picker_gallery': {'vi': 'Chọn từ thư viện', 'en': 'Choose from gallery'},
     'picker_camera': {'vi': 'Chụp ảnh bằng camera', 'en': 'Take a photo'},
     'picker_error': {'vi': 'Không thể chọn ảnh', 'en': 'Could not pick image'},
 
-        'form_edit_food': {'vi': 'Sửa thực phẩm', 'en': 'Edit food'},
+    'form_edit_food': {'vi': 'Sửa thực phẩm', 'en': 'Edit food'},
     'form_add_food': {'vi': 'Thêm thực phẩm', 'en': 'Add food'},
     'form_label_name': {'vi': 'Tên thực phẩm', 'en': 'Food name'},
     'form_name_hint': {'vi': 'Ví dụ: Cà chua', 'en': 'e.g. Tomato'},
@@ -140,7 +149,7 @@ class AppTranslations {
     'form_add_button': {'vi': 'Thêm thực phẩm', 'en': 'Add food'},
     'form_image_add': {'vi': 'Thêm ảnh', 'en': 'Add image'},
 
-        'msg_name_required': {
+    'msg_name_required': {
       'vi': 'Vui lòng nhập tên thực phẩm',
       'en': 'Please enter food name',
     },
@@ -157,19 +166,16 @@ class AppTranslations {
       'vi': 'Đã thêm vào tủ lạnh',
       'en': 'Added to fridge',
     },
-    'msg_quantity_added_to': {
-      'vi': 'Đã cộng thêm',
-      'en': 'Added',
-    },
+    'msg_quantity_added_to': {'vi': 'Đã cộng thêm', 'en': 'Added'},
     'msg_deleted': {'vi': 'Đã xóa', 'en': 'Deleted'},
 
-        'delete_title': {'vi': 'Xóa thực phẩm?', 'en': 'Delete food?'},
+    'delete_title': {'vi': 'Xóa thực phẩm?', 'en': 'Delete food?'},
     'delete_message': {
       'vi': 'Bạn có chắc muốn xóa khỏi tủ lạnh không?',
       'en': 'Are you sure you want to remove from fridge?',
     },
 
-                'ai_title': {'vi': 'Thư Viện Công Thức', 'en': 'Recipe Library'},
+    'ai_title': {'vi': 'Thư Viện Công Thức', 'en': 'Recipe Library'},
     'ai_search_hint': {
       'vi': 'Tìm kiếm công thức...',
       'en': 'Search recipes...',
@@ -180,10 +186,10 @@ class AppTranslations {
     'ai_minutes': {'vi': 'phút', 'en': 'min'},
     'ai_kcal': {'vi': 'kcal', 'en': 'kcal'},
 
-                'recipe_ingredients': {'vi': 'Nguyên Liệu', 'en': 'Ingredients'},
+    'recipe_ingredients': {'vi': 'Nguyên Liệu', 'en': 'Ingredients'},
     'recipe_steps': {'vi': 'Các Bước Thực Hiện', 'en': 'Cooking Steps'},
 
-                'profile_title': {'vi': 'Cá nhân', 'en': 'Profile'},
+    'profile_title': {'vi': 'Cá nhân', 'en': 'Profile'},
     'profile_placeholder': {'vi': 'Trang cá nhân', 'en': 'Profile page'},
     'profile_language': {'vi': 'Ngôn ngữ', 'en': 'Language'},
     'profile_vietnamese': {'vi': 'Tiếng Việt', 'en': 'Vietnamese'},
