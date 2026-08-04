@@ -56,7 +56,7 @@ class _MainPageState extends State<MainPage> {
           BottomNavigationBarItem(
             icon: const Icon(Icons.auto_awesome_outlined),
             activeIcon: const Icon(Icons.auto_awesome),
-            label: tr.text('tab_ai'),
+            label: tr.text('Ăn Ngon'),
           ),
 
           BottomNavigationBarItem(

@@ -15,12 +15,11 @@ class FridgePage extends StatefulWidget {
 }
 
 class _FridgePageState extends State<FridgePage> {
-      
   final TextEditingController _searchController = TextEditingController();
 
   final ImagePicker _imagePicker = ImagePicker();
 
-    String _selectedCategoryKey = 'all';
+  String _selectedCategoryKey = 'all';
 
   /// Khoá danh mục xuất hiện trong dữ liệu (theo thứ tự thêm vào).
   List<String> get _categoryKeys {
@@ -303,7 +302,7 @@ class _FridgePageState extends State<FridgePage> {
 
       child: Row(
         children: [
-                    Container(
+          Container(
             width: 70,
             height: 70,
 
@@ -322,7 +321,7 @@ class _FridgePageState extends State<FridgePage> {
 
           const SizedBox(width: 12),
 
-                    Expanded(
+          Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
 
@@ -384,7 +383,7 @@ class _FridgePageState extends State<FridgePage> {
             ),
           ),
 
-                    PopupMenuButton<String>(
+          PopupMenuButton<String>(
             icon: const Icon(Icons.more_vert, color: Color(0xff7C887F)),
 
             onSelected: (value) {
@@ -418,13 +417,18 @@ class _FridgePageState extends State<FridgePage> {
 
                   child: Row(
                     children: [
-                      const Icon(Icons.delete_outline,
-                          size: 18, color: Colors.red),
+                      const Icon(
+                        Icons.delete_outline,
+                        size: 18,
+                        color: Colors.red,
+                      ),
 
                       const SizedBox(width: 10),
 
-                      Text(tr.text('delete'),
-                          style: const TextStyle(color: Colors.red)),
+                      Text(
+                        tr.text('delete'),
+                        style: const TextStyle(color: Colors.red),
+                      ),
                     ],
                   ),
                 ),
@@ -437,7 +441,6 @@ class _FridgePageState extends State<FridgePage> {
   }
 
   Widget _buildFoodImage(Food food, {double width = 70, double height = 70}) {
-            
     if (food.imageBytes != null) {
       return Image.memory(
         food.imageBytes!,
@@ -661,12 +664,14 @@ class _FridgePageState extends State<FridgePage> {
                   tr.text('picker_title'),
 
                   style: const TextStyle(
-                      fontSize: 16, fontWeight: FontWeight.bold),
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
 
                 const SizedBox(height: 10),
 
-                                ListTile(
+                ListTile(
                   leading: Container(
                     width: 42,
                     height: 42,
@@ -697,7 +702,7 @@ class _FridgePageState extends State<FridgePage> {
                   },
                 ),
 
-                                ListTile(
+                ListTile(
                   leading: Container(
                     width: 42,
                     height: 42,
@@ -778,8 +783,7 @@ class _FridgePageState extends State<FridgePage> {
               decoration: const BoxDecoration(
                 color: Colors.white,
 
-                borderRadius:
-                    BorderRadius.vertical(top: Radius.circular(25)),
+                borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
               ),
 
               child: SingleChildScrollView(
@@ -787,7 +791,7 @@ class _FridgePageState extends State<FridgePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
 
                   children: [
-                                        Row(
+                    Row(
                       children: [
                         Expanded(
                           child: Text(
@@ -817,7 +821,7 @@ class _FridgePageState extends State<FridgePage> {
 
                     const SizedBox(height: 15),
 
-                                        _buildInputLabel(tr.text('form_label_name')),
+                    _buildInputLabel(tr.text('form_label_name')),
 
                     const SizedBox(height: 6),
 
@@ -832,7 +836,7 @@ class _FridgePageState extends State<FridgePage> {
 
                     const SizedBox(height: 14),
 
-                                        _buildInputLabel(tr.text('form_label_quantity')),
+                    _buildInputLabel(tr.text('form_label_quantity')),
 
                     const SizedBox(height: 6),
 
@@ -849,30 +853,30 @@ class _FridgePageState extends State<FridgePage> {
 
                     const SizedBox(height: 14),
 
-                                        _buildInputLabel(tr.text('form_label_category')),
+                    _buildInputLabel(tr.text('form_label_category')),
 
                     const SizedBox(height: 6),
 
                     DropdownButtonFormField<String>(
                       value: selectedCategoryKey,
 
-                      decoration: _inputDecoration(
-                          '', Icons.category_outlined),
+                      decoration: _inputDecoration('', Icons.category_outlined),
 
-                      items: const [
-                        'category_vegetable',
-                        'category_meat',
-                        'category_drink',
-                        'category_fruit',
-                        'category_milk',
-                        'category_other',
-                      ].map((key) {
-                        return DropdownMenuItem<String>(
-                          value: key,
+                      items:
+                          const [
+                            'category_vegetable',
+                            'category_meat',
+                            'category_drink',
+                            'category_fruit',
+                            'category_milk',
+                            'category_other',
+                          ].map((key) {
+                            return DropdownMenuItem<String>(
+                              value: key,
 
-                          child: Text(tr.text(key)),
-                        );
-                      }).toList(),
+                              child: Text(tr.text(key)),
+                            );
+                          }).toList(),
 
                       onChanged: (value) {
                         if (value != null) {
@@ -885,7 +889,7 @@ class _FridgePageState extends State<FridgePage> {
 
                     const SizedBox(height: 14),
 
-                                        _buildInputLabel(tr.text('form_label_expiry')),
+                    _buildInputLabel(tr.text('form_label_expiry')),
 
                     const SizedBox(height: 6),
 
@@ -922,8 +926,7 @@ class _FridgePageState extends State<FridgePage> {
 
                           borderRadius: BorderRadius.circular(12),
 
-                          border:
-                              Border.all(color: const Color(0xffE1E8E2)),
+                          border: Border.all(color: const Color(0xffE1E8E2)),
                         ),
 
                         child: Row(
@@ -962,7 +965,7 @@ class _FridgePageState extends State<FridgePage> {
 
                     const SizedBox(height: 14),
 
-                                        _buildInputLabel(tr.text('form_label_image')),
+                    _buildInputLabel(tr.text('form_label_image')),
 
                     const SizedBox(height: 8),
 
@@ -989,8 +992,7 @@ class _FridgePageState extends State<FridgePage> {
 
                           borderRadius: BorderRadius.circular(14),
 
-                          border:
-                              Border.all(color: const Color(0xffE1E8E2)),
+                          border: Border.all(color: const Color(0xffE1E8E2)),
                         ),
 
                         child: _buildPreviewImage(
@@ -1006,12 +1008,14 @@ class _FridgePageState extends State<FridgePage> {
                       tr.text('form_image_help'),
 
                       style: const TextStyle(
-                          fontSize: 9, color: Color(0xff8A968D)),
+                        fontSize: 9,
+                        color: Color(0xff8A968D),
+                      ),
                     ),
 
                     const SizedBox(height: 22),
 
-                                        SizedBox(
+                    SizedBox(
                       width: double.infinity,
 
                       height: 50,
@@ -1025,8 +1029,8 @@ class _FridgePageState extends State<FridgePage> {
 
                             name: nameController.text.trim(),
 
-                            quantity: int.tryParse(
-                                    quantityController.text.trim()) ??
+                            quantity:
+                                int.tryParse(quantityController.text.trim()) ??
                                 0,
 
                             selectedCategoryKey: selectedCategoryKey,
@@ -1114,8 +1118,11 @@ class _FridgePageState extends State<FridgePage> {
       mainAxisAlignment: MainAxisAlignment.center,
 
       children: [
-        const Icon(Icons.add_a_photo_outlined,
-            size: 35, color: Color(0xff7D9080)),
+        const Icon(
+          Icons.add_a_photo_outlined,
+          size: 35,
+          color: Color(0xff7D9080),
+        ),
 
         const SizedBox(height: 8),
 
@@ -1149,19 +1156,19 @@ class _FridgePageState extends State<FridgePage> {
     String? nameKey,
   }) {
     final tr = LanguageProvider.t(context);
-        if (name.isEmpty) {
+    if (name.isEmpty) {
       _showMessage(tr.text('msg_name_required'));
 
       return;
     }
 
-        if (quantity <= 0) {
+    if (quantity <= 0) {
       _showMessage(tr.text('msg_quantity_invalid'));
 
       return;
     }
 
-if (isEditing && food != null) {
+    if (isEditing && food != null) {
       final duplicateIndex = fakeFoods.indexWhere((item) {
         return item.id != food.id && item.nameKey == food.nameKey;
       });
@@ -1254,8 +1261,7 @@ if (isEditing && food != null) {
 
       Navigator.pop(context);
 
-      _showMessage(
-          '${tr.text('msg_quantity_added_to')} $quantity → $name');
+      _showMessage('${tr.text('msg_quantity_added_to')} $quantity → $name');
 
       return;
     }
@@ -1303,8 +1309,7 @@ if (isEditing && food != null) {
           title: Text(
             tr.text('delete_title'),
 
-            style:
-                const TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
           ),
 
           content: Text(
@@ -1336,7 +1341,9 @@ if (isEditing && food != null) {
 
                 Navigator.pop(context);
 
-                _showMessage('${tr.text('msg_deleted')} ${tr.text(food.nameKey)}');
+                _showMessage(
+                  '${tr.text('msg_deleted')} ${tr.text(food.nameKey)}',
+                );
               },
 
               child: Text(
