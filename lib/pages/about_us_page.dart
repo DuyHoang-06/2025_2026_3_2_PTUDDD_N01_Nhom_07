@@ -150,11 +150,175 @@ class AboutUsPage extends StatelessWidget {
 
         const SizedBox(height: 14),
 
-        // tạo model contact
+        _buildContactItem(
+          name: 'Đoàn Duy Hoàng',
+          studentId: '24100308',
+          role: 'Flutter Developer',
+          email: '24100308@st.phenikaa-uni.edu.vn',
+          university: 'Phenikaa University',
+        ),
+
         const SizedBox(height: 12),
 
-        //tạo model contact
+        _buildContactItem(
+          name: 'Đào Duy Khánh',
+          studentId: '24108550',
+          role: 'UI/UX Designer',
+          email: '24108550@st.phenikaa-uni.edu.vn',
+          university: 'Phenikaa University',
+        ),
       ],
+    );
+  }
+
+  // ============================================
+  // DEVELOPER PROFILE
+  // ============================================
+
+  Widget _buildContactItem({
+    required String name,
+    required String studentId,
+    required String role,
+    required String email,
+    required String university,
+  }) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(15),
+
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: const Color(0xffE8EEE9)),
+      ),
+
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Avatar
+          Container(
+            width: 45,
+            height: 45,
+
+            decoration: BoxDecoration(
+              color: const Color(0xffEAF6EC),
+              borderRadius: BorderRadius.circular(13),
+            ),
+
+            child: const Icon(
+              Icons.person_outline,
+              size: 24,
+              color: Color(0xff4CAF50),
+            ),
+          ),
+
+          const SizedBox(width: 13),
+
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Tên
+                Text(
+                  name,
+                  style: const TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xff1D3022),
+                  ),
+                ),
+
+                const SizedBox(height: 3),
+
+                // Vai trò
+                Text(
+                  role,
+                  style: const TextStyle(
+                    fontSize: 10,
+                    color: Color(0xff4CAF50),
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+
+                const SizedBox(height: 9),
+
+                // Mã sinh viên
+                Row(
+                  children: [
+                    const Icon(
+                      Icons.badge_outlined,
+                      size: 14,
+                      color: Colors.grey,
+                    ),
+
+                    const SizedBox(width: 6),
+
+                    Expanded(
+                      child: Text(
+                        'ID: $studentId',
+                        style: const TextStyle(
+                          fontSize: 10,
+                          color: Color(0xff657067),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+
+                const SizedBox(height: 5),
+
+                // Email
+                Row(
+                  children: [
+                    const Icon(
+                      Icons.email_outlined,
+                      size: 14,
+                      color: Colors.grey,
+                    ),
+
+                    const SizedBox(width: 6),
+
+                    Expanded(
+                      child: Text(
+                        email,
+                        style: const TextStyle(
+                          fontSize: 10,
+                          color: Color(0xff657067),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+
+                const SizedBox(height: 5),
+
+                // Trường đại học
+                Row(
+                  children: [
+                    const Icon(
+                      Icons.school_outlined,
+                      size: 14,
+                      color: Colors.grey,
+                    ),
+
+                    const SizedBox(width: 6),
+
+                    Expanded(
+                      child: Text(
+                        university,
+                        style: const TextStyle(
+                          fontSize: 10,
+                          color: Color(0xff657067),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
