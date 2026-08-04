@@ -17,6 +17,32 @@ class ProfilePage extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: const Color(0xffF7FAF6),
+      appBar: AppBar(
+        backgroundColor: const Color(0xffF5FAF6),
+        elevation: 0,
+
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(
+            Icons.arrow_back_ios_new,
+            size: 18,
+            color: Color(0xff1D3022),
+          ),
+        ),
+
+        title: const Text(
+          'Profile',
+          style: TextStyle(
+            color: Color(0xff1D3022),
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+
+        centerTitle: true,
+      ),
       body: SafeArea(
         child: user == null
             ? _NotLoggedInState(message: tr.text('profile_not_logged_in'))

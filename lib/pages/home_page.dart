@@ -21,12 +21,12 @@ class _HomePageState extends State<HomePage> {
     AiPage(),
     ProfilePage(),
   ];
-      
+
   List<Food> get foods => fakeFoods;
 
-    int get totalFoods => foods.length;
+  int get totalFoods => foods.length;
 
-      int get expiringFoods {
+  int get expiringFoods {
     final today = DateTime.now();
 
     return foods.where((food) {
@@ -36,7 +36,7 @@ class _HomePageState extends State<HomePage> {
     }).length;
   }
 
-    int get expiredFoods {
+  int get expiredFoods {
     final today = DateTime.now();
 
     return foods.where((food) {
@@ -127,7 +127,7 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-    String _categoryTranslationKey(String name) {
+  String _categoryTranslationKey(String name) {
     switch (name.toLowerCase()) {
       case 'rau củ':
       case 'rau':
@@ -237,7 +237,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
 
-                _buildLanguageToggle(),
+        _buildLanguageToggle(),
 
         const SizedBox(width: 8),
 
@@ -341,7 +341,11 @@ class _HomePageState extends State<HomePage> {
         decoration: InputDecoration(
           hintText: tr.text('home_search_hint'),
           hintStyle: const TextStyle(color: Color(0xff87968B), fontSize: 12),
-          prefixIcon: const Icon(Icons.search, size: 18, color: Color(0xff7D9181)),
+          prefixIcon: const Icon(
+            Icons.search,
+            size: 18,
+            color: Color(0xff7D9181),
+          ),
           border: InputBorder.none,
           contentPadding: const EdgeInsets.symmetric(vertical: 12),
         ),
@@ -386,11 +390,18 @@ class _HomePageState extends State<HomePage> {
 
             Row(
               children: [
-                _buildBannerNumber(totalFoods.toString(), tr.text('home_total')),
                 _buildBannerNumber(
-                    expiringFoods.toString(), tr.text('home_expiring')),
+                  totalFoods.toString(),
+                  tr.text('home_total'),
+                ),
                 _buildBannerNumber(
-                    expiredFoods.toString(), tr.text('home_expired')),
+                  expiringFoods.toString(),
+                  tr.text('home_expiring'),
+                ),
+                _buildBannerNumber(
+                  expiredFoods.toString(),
+                  tr.text('home_expired'),
+                ),
               ],
             ),
           ],
@@ -430,7 +441,7 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-      
+
   Widget _buildStatistics() {
     final tr = LanguageProvider.t(context);
     return Row(
@@ -679,7 +690,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildFoodSuggestion() {
     final tr = LanguageProvider.t(context);
-        Food? food;
+    Food? food;
 
     final today = DateTime.now();
 
