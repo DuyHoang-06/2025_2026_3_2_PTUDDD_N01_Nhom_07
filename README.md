@@ -1,16 +1,14 @@
-# flutter_smart_fridge
-
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+#                                                        SMART FRIDGE
+# Cách cài đặt thư viện và hướng dẫn sử dụng ứng dụng:
+1. Mở Visual Studio Code, trong Terminal (Ctrl + J) clone repo của dự án này về máy local:
+   Trong Terminal gõ: git clone https://github.com/DuyHoang-06/2025_2026_3_2_PTUDDD_N01_Nhom_07.git
+2. Cài thư viện:
+   Trong Terminal, gõ: flutter pub add image_picker
+   Đợi vài giây để cài đặt thư viện thành công
+3. Sau khi cài đặt xong thư viện Image Picker tiến hành debug (F5) để xem chi tiết ứng dụng.
+# THÔNG TIN NHÓM PHÁT TRIỂN:
+1. Đoàn Duy Hoàng - 24100308
+   Vai trò: Flutter Dev, lên ý tưởng chính các chức năng, kiểm thử hệ thống.
+3. Đào Duy Khánh - 24108550
+   Vai trò: xử lý UI/UX của dự án, gợi ý và phát triển các tính năng và kiểm thử hệ thống.
+   
