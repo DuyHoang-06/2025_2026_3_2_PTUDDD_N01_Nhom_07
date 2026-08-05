@@ -123,12 +123,6 @@ class AppTranslations {
       'en': 'Try a different keyword',
     },
 
-    'food_tomato': {'vi': 'Cà chua', 'en': 'Tomato'},
-    'food_egg': {'vi': 'Trứng gà', 'en': 'Egg'},
-    'food_milk': {'vi': 'Sữa tươi', 'en': 'Fresh milk'},
-    'food_coca': {'vi': 'Coca Cola', 'en': 'Coca Cola'},
-    'food_apple': {'vi': 'Táo', 'en': 'Apple'},
-
     'status_expired': {'vi': 'Đã hết hạn', 'en': 'Expired'},
     'status_expiring': {'vi': 'Sắp hết hạn', 'en': 'Expiring soon'},
     'status_fresh': {'vi': 'Còn hạn', 'en': 'Fresh'},

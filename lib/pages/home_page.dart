@@ -45,52 +45,112 @@ class _HomePageState extends State<HomePage> {
   }
 
   List<Map<String, dynamic>> get categories {
-    final Map<String, int> categoryKeyCounts = {};
+    final Map<String, int> categoryCounts = {};
 
     for (var food in foods) {
-      categoryKeyCounts[food.categoryKey] =
-          (categoryKeyCounts[food.categoryKey] ?? 0) + 1;
+      categoryCounts[food.category] = (categoryCounts[food.category] ?? 0) + 1;
     }
 
-    return categoryKeyCounts.entries.map((entry) {
+    return categoryCounts.entries.map((entry) {
       return {
-        'key': entry.key,
+        'name': entry.key,
         'count': entry.value,
+        'image': _getCategoryImage(entry.key),
+        'color': _getCategoryColor(entry.key),
       };
     }).toList();
   }
 
-  String _getCategoryImage(String categoryKey) {
-    switch (categoryKey) {
-      case 'category_vegetable':
+  String _getCategoryImage(String category) {
+    switch (category.toLowerCase()) {
+      case 'rau củ':
+      case 'rau':
+      case 'vegetable':
         return 'assets/imgs/categories/vegetable.png';
-      case 'category_meat':
+
+      case 'thịt & cá':
+      case 'thịt':
+      case 'cá':
+      case 'meat':
         return 'assets/imgs/categories/meat.png';
-      case 'category_drink':
+
+      case 'đồ uống':
+      case 'đồ uống ':
+      case 'drink':
         return 'assets/imgs/categories/drink.jpg';
-      case 'category_milk':
+
+      case 'sữa':
+      case 'sữa tươi ':
+      case 'dairy':
+      case 'milk':
         return 'assets/imgs/categories/whitemilk.png';
-      case 'category_fruit':
+
+      case 'trái cây':
+      case 'fruit':
         return 'assets/imgs/categories/fruit.png';
+
       default:
         return 'assets/imgs/categories/other.png';
     }
   }
 
-  Color _getCategoryColor(String categoryKey) {
-    switch (categoryKey) {
-      case 'category_vegetable':
+  Color _getCategoryColor(String category) {
+    switch (category.toLowerCase()) {
+      case 'rau củ':
+      case 'rau':
+      case 'vegetable':
         return const Color(0xffE7F6E9);
-      case 'category_meat':
+
+      case 'thịt & cá':
+      case 'thịt':
+      case 'cá':
+      case 'meat':
         return const Color(0xffffeeee);
-      case 'category_drink':
+
+      case 'đồ uống':
+      case 'đồ uống ':
+      case 'drink':
         return const Color(0xfffff3dd);
-      case 'category_milk':
+
+      case 'sữa':
+      case 'sữa tươi ':
+      case 'dairy':
+      case 'milk':
         return const Color(0xffE4F4E7);
-      case 'category_fruit':
+
+      case 'trái cây':
+      case 'fruit':
         return const Color(0xffffe8ed);
+
       default:
         return const Color(0xffE7F6E9);
+    }
+  }
+
+  String _categoryTranslationKey(String name) {
+    switch (name.toLowerCase()) {
+      case 'rau củ':
+      case 'rau':
+      case 'vegetable':
+        return 'category_vegetable';
+      case 'thịt & cá':
+      case 'thịt':
+      case 'cá':
+      case 'meat':
+        return 'category_meat';
+      case 'đồ uống':
+      case 'drink':
+        return 'category_drink';
+      case 'trái cây':
+      case 'fruit':
+        return 'category_fruit';
+      case 'sữa':
+      case 'sữa tươi':
+      case 'milk':
+      case 'dairy':
+        return 'category_milk';
+      default:
+        return 'category_other';
     }
   }
 
@@ -517,15 +577,13 @@ class _HomePageState extends State<HomePage> {
         itemCount: categories.length,
         separatorBuilder: (_, __) => const SizedBox(width: 8),
         itemBuilder: (context, index) {
-          final cat = categories[index];
-          final key = cat['key'] as String;
-          final count = cat['count'] as int;
+          final category = categories[index];
 
           return _buildCategoryCard(
-            name: tr.text(key),
-            image: _getCategoryImage(key),
-            color: _getCategoryColor(key),
-            count: count,
+            name: tr.text(_categoryTranslationKey(category['name'])),
+            image: category['image'],
+            color: category['color'],
+            count: category['count'],
           );
         },
       ),
@@ -723,7 +781,7 @@ class _HomePageState extends State<HomePage> {
               alignment: Alignment.centerLeft,
               child: Text(
                 food != null
-                    ? '${tr.text('home_suggestion_with')} ${tr.text(food.nameKey)}'
+                    ? '${tr.text('home_suggestion_with')} ${food.name}'
                     : tr.text('home_suggestion_empty'),
                 style: const TextStyle(
                   fontSize: 13,
